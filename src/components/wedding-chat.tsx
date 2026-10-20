@@ -56,7 +56,7 @@ export function WeddingChat({ starters }: { starters: string[] }) {
         aria-expanded={false}
         className="fixed right-4 bottom-4 z-50 rounded-full bg-sea px-5 py-3 text-shell shadow-lg transition-colors hover:bg-sea-dark"
       >
-        Questions?
+        Chat with us
       </button>
     );
   }
