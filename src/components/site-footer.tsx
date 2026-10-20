@@ -22,7 +22,7 @@ export async function SiteFooter() {
           className="stroke-seafoam"
         />
       </svg>
-      <div className="bg-shallows px-4 pt-6 pb-10 text-center">
+      <div className="bg-shallows px-4 pt-6 pb-24 text-center sm:pb-10">
         <p className="font-serif text-lg">{coupleNames}</p>
         <div aria-hidden className="mx-auto my-4 h-px w-16 bg-seafoam" />
         <p className="text-sm text-ink-muted">We can&apos;t wait to celebrate with you.</p>
