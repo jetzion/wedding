@@ -9,7 +9,7 @@ export async function SiteFooter() {
         aria-hidden
         viewBox="0 0 1440 48"
         preserveAspectRatio="none"
-        className="block h-8 w-full sm:h-12"
+        className="relative -mt-8 block h-8 w-full sm:-mt-12 sm:h-12"
       >
         <path
           d="M0 24 C240 48 480 0 720 24 S1200 48 1440 24 V48 H0 Z"

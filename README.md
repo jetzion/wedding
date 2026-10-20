@@ -13,3 +13,7 @@ npm run lint
 npm run typecheck
 npm run build
 ```
+
+## Credits
+
+Homepage photo by [Blake Wisz](https://unsplash.com/photos/turquoise-ocean-waves-gently-lap-a-white-sand-beach-0r0KWZo50KA) on Unsplash (Unsplash License). Placeholder until the couple's own photos are added.
