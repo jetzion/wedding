@@ -31,8 +31,9 @@ export async function POST(request: Request) {
   }
 
   const settings = await getWeddingSettings();
+  const firstSpeaker = settings.firstNames[Math.floor(Math.random() * settings.firstNames.length)];
   return streamCompletion(
-    [{ role: "system", content: buildChatSystemPrompt(settings) }, ...parsed.data.messages],
+    [{ role: "system", content: buildChatSystemPrompt(settings, firstSpeaker) }, ...parsed.data.messages],
     400,
   );
 }
