@@ -1,0 +1,60 @@
+# CLAUDE.md — Wedding Website
+
+Mobile-first wedding website: a public site for guests (info, events, travel, FAQ, RSVP) and a private admin dashboard for the couple (guests, invitations, RSVPs, content).
+
+The full product specification is in `docs/SPEC.md`. Read the relevant section before working on a feature. Section 14 (MVP) defines the first release; section 13 is the roadmap.
+
+## Stack
+
+All free tiers or open source:
+
+- Next.js (App Router) + TypeScript + React, Tailwind CSS
+- PostgreSQL on Neon (free tier), Drizzle ORM
+- Better Auth for admin login (email allowlist, no public sign-up)
+- Zod for validation
+- Vitest (unit/integration) + Playwright (e2e)
+- Hosting: Vercel Hobby plan
+- Package manager: npm
+
+Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the relevant guide in `node_modules/next/dist/docs/` before writing Next.js code.
+
+## Commands
+
+- `npm run dev` — dev server
+- `npm run lint` — ESLint
+- `npm run typecheck` — generates route types, then `tsc --noEmit`
+- `npm run build` — production build
+
+<!-- Add as they are set up: test, e2e, db migrate, db seed. -->
+
+## Layout
+
+- `src/app/` — App Router routes
+- `docs/SPEC.md` — product specification
+
+## Non-negotiable rules
+
+- Enforce authorization on the server for every protected operation. Never rely on client-side checks or hidden fields.
+- Never expose the guest list, or another household's data, through public pages or APIs.
+- Invitation tokens must be unpredictable, validated on the server, scoped to one invitation, and revocable.
+- Use generic error messages for invalid invitation lookups.
+- Never show an RSVP confirmation before the response is persisted.
+- Keep "awaiting response" distinct from an explicit decline.
+- Do not hardcode secrets, real guest data, or personal information. Use clearly fictional test data.
+- Do not invent hotel rates, availability, or booking details.
+- Never send real emails from test or development environments without explicit configuration.
+
+## How to work
+
+1. Inspect the existing codebase before proposing or implementing architectural changes.
+2. If a critical product decision is unknown, ask a focused question rather than inventing business rules. For noncritical decisions, use sensible defaults and document them.
+3. Present a short plan for substantial changes, then implement in small, testable increments.
+4. Prefer simple, reusable components. Avoid unnecessary dependencies and infrastructure.
+5. Add or update tests when changing important business logic (RSVP, eligibility, tokens, authorization).
+6. Run tests, lint, type checking, and build after changes. Fix regressions before declaring work complete.
+7. Update docs and `.env.example` when configuration changes.
+8. Never claim deployment, email delivery, authentication, or database operations work unless verified.
+
+## Completion summary
+
+At the end of each substantial task, report: what was implemented, key files changed, database or environment changes, tests and validation performed, remaining limitations, and any manual setup needed.
