@@ -1,5 +1,7 @@
+import { PhotoGallery } from "@/components/story/photo-gallery";
 import { StoryCard, StoryPhoto, StorySection } from "@/components/story/story-section";
-import { engagementPhotos, funQuestions, howWeMet, proposal, timeline } from "@/content/story";
+import { engagementPhotos } from "@/content/engagement";
+import { funQuestions, howWeMet, proposal, timeline } from "@/content/story";
 
 export function HowWeMet() {
   return (
@@ -57,13 +59,7 @@ export function Proposal() {
 export function EngagementPhotos() {
   return (
     <StorySection id="engagement" title="Engagement Photos">
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
-        {engagementPhotos.map((photo, i) => (
-          <div key={i} className="overflow-hidden rounded-2xl">
-            <StoryPhoto photo={photo} sizes="(min-width: 640px) 33vw, 50vw" />
-          </div>
-        ))}
-      </div>
+      <PhotoGallery photos={engagementPhotos} />
     </StorySection>
   );
 }

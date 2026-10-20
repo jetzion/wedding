@@ -97,8 +97,6 @@ export const proposal = {
   text: "[How the proposal happened: the plan, the surprise, the answer.]",
 };
 
-export const engagementPhotos: Photo[] = [null, null, null, null, null, null];
-
 export const loveNotes = [
   { from: "Greg", about: "Daniella", text: "[What Greg loves most about Daniella.]" },
   { from: "Daniella", about: "Greg", text: "[What Daniella loves most about Greg.]" },
