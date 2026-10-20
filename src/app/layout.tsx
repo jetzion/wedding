@@ -37,7 +37,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         {children}
         <SiteFooter />
-        <WeddingChat starters={[...firstNames.map((name) => `Who is ${name}?`), ...starters]} />
+        <WeddingChat
+          speakers={firstNames}
+          starters={[...firstNames.map((name) => `Who is ${name}?`), ...starters]}
+        />
       </body>
     </html>
   );

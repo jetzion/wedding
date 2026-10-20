@@ -1,12 +1,13 @@
 "use client";
 
 import { type FormEvent, useEffect, useRef, useState } from "react";
+import { ChatReply } from "@/components/chat-reply";
 import { streamChat } from "@/lib/stream";
 
 type Turn = { role: "user" | "assistant"; content: string };
 
 /** Floating Q&A chat about the wedding. */
-export function WeddingChat({ starters }: { starters: string[] }) {
+export function WeddingChat({ starters, speakers }: { starters: string[]; speakers: string[] }) {
   const [open, setOpen] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");
@@ -83,7 +84,9 @@ export function WeddingChat({ starters }: { starters: string[] }) {
       <div aria-live="polite" className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
         {turns.length === 0 && (
           <div className="space-y-3">
-            <p className="text-ink-muted">Questions about the wedding? Ask away.</p>
+            <p className="text-ink-muted">
+              Ask {speakers.join(" and ")} anything. Fair warning: they don&apos;t always agree.
+            </p>
             <div className="flex flex-wrap gap-2">
               {starters.map((q) => (
                 <button
@@ -98,19 +101,19 @@ export function WeddingChat({ starters }: { starters: string[] }) {
             </div>
           </div>
         )}
-        {turns.map((turn, i) => (
-          <p
-            key={i}
-            className={
-              turn.role === "user"
-                ? "ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-sea px-4 py-2 text-shell"
-                : "w-fit max-w-[85%] rounded-2xl rounded-bl-sm bg-shallows px-4 py-2"
-            }
-          >
-            <span className="sr-only">{turn.role === "user" ? "You: " : "Answer: "}</span>
-            {turn.content || "…"}
-          </p>
-        ))}
+        {turns.map((turn, i) =>
+          turn.role === "user" ? (
+            <p
+              key={i}
+              className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-sea px-4 py-2 text-shell"
+            >
+              <span className="sr-only">You: </span>
+              {turn.content}
+            </p>
+          ) : (
+            <ChatReply key={i} content={turn.content} speakers={speakers} />
+          ),
+        )}
         {error && (
           <p role="alert" className="text-sm text-ink">
             {error}

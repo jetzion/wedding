@@ -22,7 +22,7 @@ export async function streamCompletion(messages: ChatMessage[], maxTokens: numbe
     },
     body: JSON.stringify({
       models: CHAT_MODELS,
-      temperature: 0.3,
+      temperature: 0.8,
       max_tokens: maxTokens,
       stream: true,
       reasoning: { effort: "low", exclude: true },
