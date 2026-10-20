@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -15,7 +17,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Our Wedding",
+  title: { default: "Our Wedding", template: "%s | Our Wedding" },
   description: "Wedding details, travel information, and RSVP.",
 };
 
@@ -25,7 +27,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${cormorant.variable} ${jost.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }

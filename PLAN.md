@@ -13,11 +13,11 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 ## Phase 1 — Foundation
 
 ### 1. Site shell
-- [ ] Header with the couple's names
-- [ ] Mobile menu
-- [ ] Navigation: Home, Our Story, Details, Travel, FAQ, RSVP
-- [ ] Footer
-- [ ] Placeholder pages for each section
+- [x] Header with the couple's names
+- [x] Mobile menu
+- [x] Navigation: Home, Our Story, Details, Travel, FAQ, RSVP
+- [x] Footer
+- [x] Placeholder pages for each section
 
 ### 2. Database (Neon + Drizzle)
 - [ ] Import the GitHub repo into Vercel (user)
