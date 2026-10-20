@@ -3,6 +3,9 @@ import { Cormorant_Garamond, Jost } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WeddingChat } from "@/components/wedding-chat";
+import { getWeddingSettings } from "@/lib/settings";
+
+const starters = ["When is the wedding?", "Where should I stay?", "How do I RSVP?"];
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -22,7 +25,9 @@ export const metadata: Metadata = {
   description: "Wedding details, travel information, and RSVP.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const { firstNames } = await getWeddingSettings();
+
   return (
     <html
       lang="en"
@@ -32,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         {children}
         <SiteFooter />
-        <WeddingChat />
+        <WeddingChat starters={[...firstNames.map((name) => `Get to know ${name}`), ...starters]} />
       </body>
     </html>
   );

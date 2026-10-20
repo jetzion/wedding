@@ -5,10 +5,8 @@ import { streamChat } from "@/lib/stream";
 
 type Turn = { role: "user" | "assistant"; content: string };
 
-const starters = ["When is the wedding?", "Where should I stay?", "How do I RSVP?"];
-
 /** Floating Q&A chat about the wedding. */
-export function WeddingChat() {
+export function WeddingChat({ starters }: { starters: string[] }) {
   const [open, setOpen] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");
