@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
-/* Coastal theme. Swap these tokens to change the site's look. */
+/* Florida white-sand beach theme. Swap these tokens to change the site's look. */
 :root {
-  --sand: #f7f3ec;
-  --sand-deep: #e8dcc8;
+  --sand: #fdfcf8;
+  --sand-deep: #ede6d8;
   --shell: #ffffff;
-  --ink: #1f3a4d;
-  --ink-muted: #51626e;
-  --sea: #2e6f8e;
-  --sea-dark: #23566f;
-  --seafoam: #a9cbd6;
+  --shallows: #e3f4f3;
+  --ink: #0f3b47;
+  --ink-muted: #4b6871;
+  --sea: #0b7a85;
+  --sea-dark: #08606a;
+  --seafoam: #5fc4c0;
 }
 
 @theme inline {
   --color-sand: var(--sand);
   --color-sand-deep: var(--sand-deep);
   --color-shell: var(--shell);
+  --color-shallows: var(--shallows);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-sea: var(--sea);
