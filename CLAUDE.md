@@ -31,6 +31,7 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 
 - `src/app/` — App Router routes
 - `docs/SPEC.md` — product specification
+- `PLAN.md` — current build plan; check off items as they are completed
 
 ## Non-negotiable rules
 
