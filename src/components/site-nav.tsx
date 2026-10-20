@@ -16,7 +16,7 @@ export function SiteNav() {
         href={href}
         onClick={() => setOpen(false)}
         aria-current={pathname === href ? "page" : undefined}
-        className="block py-2 tracking-wide text-ink-muted transition-colors hover:text-sea aria-[current=page]:text-ink aria-[current=page]:underline aria-[current=page]:decoration-seafoam aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
+        className="block py-2 tracking-wide whitespace-nowrap text-ink-muted transition-colors hover:text-sea aria-[current=page]:text-ink aria-[current=page]:underline aria-[current=page]:decoration-seafoam aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
       >
         {label}
       </Link>
@@ -25,14 +25,14 @@ export function SiteNav() {
 
   return (
     <nav aria-label="Main">
-      <ul className="hidden gap-8 md:flex">{links}</ul>
+      <ul className="hidden gap-8 lg:flex">{links}</ul>
 
       <button
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-controls="mobile-menu"
-        className="rounded-full px-4 py-2 text-sm uppercase tracking-[0.2em] text-ink md:hidden"
+        className="rounded-full px-4 py-2 text-sm uppercase tracking-[0.2em] text-ink lg:hidden"
       >
         {open ? "Close" : "Menu"}
       </button>
@@ -40,7 +40,7 @@ export function SiteNav() {
       {open && (
         <ul
           id="mobile-menu"
-          className="absolute inset-x-0 top-full flex flex-col items-center gap-2 border-b border-sand-deep bg-sand py-6 text-lg md:hidden"
+          className="absolute inset-x-0 top-full flex flex-col items-center gap-2 border-b border-sand-deep bg-sand py-6 text-lg lg:hidden"
         >
           {links}
         </ul>
