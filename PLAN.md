@@ -35,9 +35,11 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Pages read settings from the database (cached, refresh hourly)
 
 ### 3. Admin login (Better Auth)
-- [ ] Sign-in page
-- [ ] Admin email allowlist, no public sign-up
-- [ ] Protect everything under `/admin`
+- [x] Sign-in page (`/admin/sign-in`), email and password, 12-character minimum
+- [x] Admin email allowlist, no public sign-up (endpoint disabled); one-time setup page (`/admin/setup`) gated by `ADMIN_SETUP_CODE`
+- [x] Protect everything under `/admin`: `requireAdmin()` in every admin page and action
+- [ ] Production: set `BETTER_AUTH_SECRET`, `ADMIN_EMAILS`, `ADMIN_SETUP_CODE` in Vercel; create the account; remove `ADMIN_SETUP_CODE`
+- [ ] Invitation list, create, edit, delete (next)
 
 ## Phase 2 — Public website
 

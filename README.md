@@ -8,13 +8,17 @@ Stack: Next.js, TypeScript, Tailwind CSS, Neon Postgres, Drizzle, Better Auth. H
 
 ```bash
 npm install
-cp .env.example .env   # then add your OpenRouter API key
+cp .env.example .env   # then fill in the OpenRouter key and admin settings
 vercel link && vercel env pull .env.local   # development database settings
 npm run dev        # http://localhost:3000
 npm run lint
 npm run typecheck
 npm run build
 ```
+
+## Admin access
+
+Admins sign in at `/admin/sign-in`. To create an account, set `BETTER_AUTH_SECRET`, `ADMIN_EMAILS`, and `ADMIN_SETUP_CODE`, open `/admin/setup`, and enter the setup code, an email on `ADMIN_EMAILS`, and a password of at least 12 characters. Remove `ADMIN_SETUP_CODE` (and redeploy) once accounts exist.
 
 ## Credits
 

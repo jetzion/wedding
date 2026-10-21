@@ -126,3 +126,5 @@ export const rsvpResponses = pgTable(
     }).onDelete("cascade"),
   ],
 );
+
+export * from "@/db/auth-schema";
