@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { TextField } from "@/components/rsvp/fields";
+
+const noSubscription = () => () => {};
 
 /**
  * Password field with a checkbox that shows what was typed. With isNew it
- * also asks for the password a second time to confirm it.
+ * also asks for the password a second time to confirm it. The checkbox stays
+ * disabled until the page is interactive, so an early tap cannot leave it out
+ * of step with the field.
  */
 export function PasswordFields({ isNew = false }: { isNew?: boolean }) {
   const [visible, setVisible] = useState(false);
+  const interactive = useSyncExternalStore(noSubscription, () => true, () => false);
   const type = visible ? "text" : "password";
 
   return (
@@ -33,6 +38,7 @@ export function PasswordFields({ isNew = false }: { isNew?: boolean }) {
         <input
           type="checkbox"
           checked={visible}
+          disabled={!interactive}
           onChange={(e) => setVisible(e.target.checked)}
           className="size-5 accent-sea"
         />
