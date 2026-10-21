@@ -14,7 +14,7 @@ export default function Page() {
       <AdminForm action={setUp} submitLabel="Create account">
         <TextField label="Setup code" name="code" autoComplete="off" required />
         <TextField label="Email" name="email" type="email" autoComplete="username" required />
-        <PasswordFields isNew />
+        <PasswordFields variant="new" />
       </AdminForm>
     </div>
   );

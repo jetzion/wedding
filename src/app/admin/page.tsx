@@ -32,6 +32,11 @@ async function Dashboard({ params }: { params: Record<string, string | string[] 
 
   return (
     <>
+      {params.password === "changed" && (
+        <p role="status" className="text-center text-sea">
+          Your password was changed. Your other devices have been signed out.
+        </p>
+      )}
       <InvitationSummary invitations={invitations} />
       <div className="flex flex-wrap justify-center gap-3">
         <Link href="/admin/invitations/new" className={primaryButton}>
@@ -54,6 +59,9 @@ async function Dashboard({ params }: { params: Record<string, string | string[] 
       )}
       <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-ink-muted">
         <span>Signed in as {session.user.email}</span>
+        <Link href="/admin/password" className={secondaryButton}>
+          Change password
+        </Link>
         <form action={signOut}>
           <button type="submit" className={secondaryButton}>
             Sign out

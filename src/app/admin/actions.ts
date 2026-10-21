@@ -67,6 +67,30 @@ export async function setUp(_: FormResult, form: FormData): Promise<FormResult> 
   redirect("/admin");
 }
 
+const PASSWORD_ERRORS: Record<string, string> = {
+  INVALID_PASSWORD: "Your current password is not right.",
+  PASSWORD_TOO_SHORT: "The new password must be at least 12 characters.",
+  SESSION_EXPIRED: "For safety, sign out and sign in again, then change your password.",
+};
+
+/** Change the signed-in admin's password and sign out their other devices. */
+export async function changePassword(_: FormResult, form: FormData): Promise<FormResult> {
+  await requireAdmin();
+  if (await limited("admin-password")) return { error: TOO_MANY };
+  const newPassword = String(form.get("password") ?? "");
+  if (newPassword !== String(form.get("confirm") ?? "")) return { error: "The new passwords do not match." };
+  try {
+    await auth.api.changePassword({
+      body: { currentPassword: String(form.get("current") ?? ""), newPassword, revokeOtherSessions: true },
+      headers: await headers(),
+    });
+  } catch (error) {
+    if (error instanceof APIError) return { error: PASSWORD_ERRORS[error.body?.code ?? ""] ?? error.message };
+    throw error;
+  }
+  redirect("/admin?password=changed");
+}
+
 /** Sign out the current admin. */
 export async function signOut() {
   await auth.api.signOut({ headers: await headers() });

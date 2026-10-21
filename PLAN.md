@@ -57,6 +57,7 @@ Waiting on the couple:
 ### 3. Admin login (Better Auth) — done
 - [x] Sign-in page (`/admin/sign-in`), email and password, 12-character minimum
 - [x] Admin email allowlist, no public sign-up (endpoint disabled); setup page (`/admin/setup`) gated by `ADMIN_SETUP_CODE`
+- [x] Change password (`/admin/password`): current password required, signs out other devices; "Show password" checkboxes on sign-in, setup, and change password
 - [x] Protect everything under `/admin`: `requireAdmin()` in every admin page and action
 - [x] Production: `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAILS` set in Vercel
 - [x] Production: `ADMIN_SETUP_CODE` set; first admin account (jack@etzion.us) created. The setup code stays for adding admins later
