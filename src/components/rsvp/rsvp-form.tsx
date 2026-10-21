@@ -9,6 +9,7 @@ import {
   type GuestState,
   isAttending,
 } from "@/components/rsvp/form-state";
+import { frostedPanel } from "@/components/page-hero";
 import type { Invitation, InvitationEvent } from "@/lib/rsvp/types";
 
 const choices = [
@@ -54,7 +55,7 @@ export function RsvpForm({
 
   return (
     <form onSubmit={review} noValidate className="space-y-6">
-      <div className="text-center">
+      <div className={`${frostedPanel} px-6 py-6 text-center`}>
         <p className="text-sm uppercase tracking-[0.3em] text-ink-muted">Welcome</p>
         <h2 className="font-serif text-3xl sm:text-4xl">{invitation.householdName}</h2>
         {invitation.confirmationCode && (

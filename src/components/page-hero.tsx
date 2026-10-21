@@ -8,11 +8,22 @@ export const frostedPanel = "rounded-3xl bg-sand/85 shadow-sm backdrop-blur-sm";
  * banner's height and fades to transparent over its lower half, which runs
  * behind the page content below. Render it inside an `isolate` container (the
  * page's <main>) so the photo sits above that container's background but
- * below its content.
+ * below its content. Use lowTitle to keep the title clear of faces in the photo.
  */
-export function PageHero({ title, image }: { title: string; image: StaticImageData }) {
+export function PageHero({
+  title,
+  image,
+  lowTitle = false,
+}: {
+  title: string;
+  image: StaticImageData;
+  lowTitle?: boolean;
+}) {
+  const layout = lowTitle
+    ? "min-h-80 items-end pt-16 pb-4 sm:min-h-104"
+    : "min-h-72 items-center py-16 sm:min-h-96";
   return (
-    <section className="relative flex min-h-72 items-center justify-center px-4 py-16 sm:min-h-96">
+    <section className={`relative flex justify-center px-4 ${layout}`}>
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-144 sm:h-192">
         <Image
           src={image}

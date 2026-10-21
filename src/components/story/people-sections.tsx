@@ -5,7 +5,7 @@ const halfWidth = "(min-width: 640px) 50vw, 100vw";
 
 export function MeetTheCouple() {
   return (
-    <StorySection id="meet" title="Meet the Couple" overPhoto>
+    <StorySection id="meet" title="Meet the Couple" hideTitle>
       <div className="grid gap-8 sm:grid-cols-2">
         {couple.map((person) => (
           <StoryCard key={person.name}>

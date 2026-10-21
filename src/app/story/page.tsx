@@ -20,7 +20,7 @@ export const metadata: Metadata = { title: "Our Story" };
 export default function Page() {
   return (
     <main className="isolate flex flex-1 flex-col">
-      <PageHero title="Our Story" image={image} />
+      <PageHero title="Our Story" image={image} lowTitle />
       <MeetTheCouple />
       <EarlyChildhood />
       <Education />
