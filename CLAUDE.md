@@ -23,13 +23,18 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 - `npm run dev` — dev server
 - `npm run lint` — ESLint
 - `npm run typecheck` — generates route types, then `tsc --noEmit`
-- `npm run build` — production build
+- `npm run build` — applies database migrations, then production build
+- `npm run db:generate` — create a migration from `src/db/schema.ts` changes
+- `npm run db:migrate` — apply migrations to the database in `.env.local` (development)
+- `npm run db:studio` — browse the database
 
-<!-- Add as they are set up: test, e2e, db migrate, db seed. -->
+<!-- Add as they are set up: test, e2e. -->
 
 ## Layout
 
 - `src/app/` — App Router routes
+- `src/db/` — Drizzle schema and client; `drizzle/` — SQL migrations
+- Databases: Neon `wedding-db` for development, `neon-bole-zebra` for preview and production. Production secrets cannot be pulled locally; production migrations run in the Vercel build.
 - `docs/SPEC.md` — product specification
 - `PLAN.md` — current build plan; check off items as they are completed
 

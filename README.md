@@ -9,6 +9,7 @@ Stack: Next.js, TypeScript, Tailwind CSS, Neon Postgres, Drizzle, Better Auth. H
 ```bash
 npm install
 cp .env.example .env   # then add your OpenRouter API key
+vercel link && vercel env pull .env.local   # development database settings
 npm run dev        # http://localhost:3000
 npm run lint
 npm run typecheck

@@ -23,14 +23,15 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Placeholder pages for each section
 
 ### 2. Database (Neon + Drizzle)
-- [ ] Import the GitHub repo into Vercel (user)
-- [ ] Add Neon from Vercel's Storage tab (user)
-- [ ] Pull the connection string locally
-- [ ] Add Drizzle and migrations
-- [ ] Wedding settings table: names, date, time, timezone, venue, welcome message, RSVP deadline
-- [ ] Events table: ceremony, reception, and others
-- [ ] Seed settings with the couple's names
-- [ ] Pages read content from the database, not from code
+- [x] Import the GitHub repo into Vercel (user)
+- [x] Neon databases: `wedding-db` (Development), `neon-bole-zebra` (Preview + Production)
+- [x] Pull the development connection settings locally (`.env.local`)
+- [x] Add Drizzle and migrations (migrations run on every build)
+- [x] Wedding settings table: names, date, timezone, RSVP deadline
+- [ ] Wedding settings: venue and welcome message (add when needed)
+- [x] Events table: ceremony and reception (unpublished placeholders)
+- [x] Initial settings and events inserted by migration `0001`
+- [x] Pages read settings from the database (cached, refresh hourly)
 
 ### 3. Admin login (Better Auth)
 - [ ] Sign-in page

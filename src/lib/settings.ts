@@ -1,3 +1,7 @@
+import { cacheLife, cacheTag } from "next/cache";
+import { db } from "@/db";
+import { weddingSettings } from "@/db/schema";
+
 export type WeddingSettings = {
   coupleNames: string;
   firstNames: string[];
@@ -9,14 +13,20 @@ export type WeddingSettings = {
   rsvpDeadline: string;
 };
 
-/** Wedding settings. Temporary values until the database is added (PLAN.md step 2). */
+export const SETTINGS_TAG = "wedding-settings";
+
+/** Wedding settings from the database, cached and refreshable by tag. */
 export async function getWeddingSettings(): Promise<WeddingSettings> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(SETTINGS_TAG);
+
+  const [row] = await db.select().from(weddingSettings).limit(1);
   return {
-    coupleNames: "Greg Garfinkel & Daniella Etzion",
-    firstNames: ["Greg", "Daniella"],
-    timezone: "America/New_York",
-    // Placeholders until the real date and deadline are set.
-    weddingDate: "2027-08-14T17:00:00-04:00",
-    rsvpDeadline: "2027-06-01T23:59:00-04:00",
+    coupleNames: row.coupleNames,
+    firstNames: row.firstNames,
+    timezone: row.timezone,
+    weddingDate: row.weddingDate.toISOString(),
+    rsvpDeadline: row.rsvpDeadline.toISOString(),
   };
 }
