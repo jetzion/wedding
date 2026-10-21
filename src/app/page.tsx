@@ -3,11 +3,15 @@ import heroBeach from "@/assets/hero-beach.jpg";
 import heroBeachPensacola from "@/assets/hero-beach-pensacola.jpg";
 import heroBeachPalms from "@/assets/hero-beach-palms.jpg";
 import heroBeachShore from "@/assets/hero-beach-shore.jpg";
+import { Countdown } from "@/components/countdown";
 import { HeroSlideshow } from "@/components/hero-slideshow";
+import { getWeddingSettings } from "@/lib/settings";
 
 const heroImages = [heroBeach, heroBeachShore, heroBeachPalms, heroBeachPensacola];
 
-export default function Home() {
+export default async function Home() {
+  const { weddingDate } = await getWeddingSettings();
+
   return (
     <main className="relative flex flex-1 items-center justify-center px-4 py-24">
       <HeroSlideshow images={heroImages} />
@@ -18,6 +22,7 @@ export default function Home() {
         <h1 className="font-serif text-5xl font-medium sm:text-6xl">
           Our Wedding
         </h1>
+        <Countdown target={weddingDate} />
         <div aria-hidden className="h-px w-24 bg-seafoam" />
         <p className="max-w-md text-lg text-ink-muted">
           Details are on their way. Please check back soon.

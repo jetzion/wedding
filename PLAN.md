@@ -68,7 +68,7 @@ In order:
 
 ### 4. Homepage
 - [ ] Names, date, venue from settings
-- [ ] Countdown using the configured timezone
+- [x] Countdown under "Our Wedding": days, hours, minutes, seconds to the wedding date in settings (placeholder date until decided)
 - [x] Hero section and RSVP button (four beach photos cross-fade every 6 seconds; reduced motion keeps the first)
 
 ## Phase 3 — RSVP
