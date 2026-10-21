@@ -1,26 +1,42 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { frostedPanel } from "@/components/page-hero";
 import type { Photo } from "@/content/story";
 
-/** A titled Our Story section. Tinted sections use the pale aqua background. */
+/**
+ * A titled Our Story section. Tinted sections use the pale aqua background.
+ * Use overPhoto when the heading sits on top of the page banner photo.
+ */
 export function StorySection({
   id,
   title,
   tinted = false,
+  overPhoto = false,
   children,
 }: {
   id: string;
   title: string;
   tinted?: boolean;
+  overPhoto?: boolean;
   children: ReactNode;
 }) {
+  const heading = (
+    <>
+      <h2 id={id} className="text-center font-serif text-3xl font-medium sm:text-4xl">
+        {title}
+      </h2>
+      <div aria-hidden className="mx-auto mt-4 h-px w-24 bg-seafoam" />
+    </>
+  );
+
   return (
     <section aria-labelledby={id} className={tinted ? "bg-shallows/60" : undefined}>
       <div className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6">
-        <h2 id={id} className="text-center font-serif text-3xl font-medium sm:text-4xl">
-          {title}
-        </h2>
-        <div aria-hidden className="mx-auto mt-4 mb-10 h-px w-24 bg-seafoam" />
+        {overPhoto ? (
+          <div className={`${frostedPanel} mx-auto mb-10 w-fit px-10 py-6`}>{heading}</div>
+        ) : (
+          <div className="mb-10">{heading}</div>
+        )}
         {children}
       </div>
     </section>

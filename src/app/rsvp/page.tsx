@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="flex flex-1 flex-col">
+    <main className="isolate flex flex-1 flex-col bg-shallows/40">
       <PageHero title="RSVP" image={image} />
-      <div className="bg-shallows/40 px-4 py-12 sm:py-16">
+      <div className="min-h-72 px-4 py-12 sm:min-h-96 sm:py-16">
         <RsvpFlow />
       </div>
     </main>

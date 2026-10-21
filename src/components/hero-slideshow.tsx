@@ -5,7 +5,11 @@ import { useEffect, useState } from "react";
 
 const INTERVAL_MS = 6000;
 
-/** Full-bleed background photos that cross-fade in turn. Holds on the first photo when reduced motion is preferred. */
+/**
+ * Full-bleed background photos that cross-fade in turn. Photos are centered, so
+ * any cropping is even on both sides. Holds on the first photo when reduced
+ * motion is preferred.
+ */
 export function HeroSlideshow({ images }: { images: StaticImageData[] }) {
   const [current, setCurrent] = useState(0);
 
@@ -26,7 +30,7 @@ export function HeroSlideshow({ images }: { images: StaticImageData[] }) {
           preload={i === 0}
           placeholder="blur"
           sizes="(max-width: 768px) 250vw, 100vw"
-          className={`object-cover transition-opacity duration-1500 ${i === current ? "opacity-100" : "opacity-0"}`}
+          className={`object-cover object-center transition-opacity duration-1500 ${i === current ? "opacity-100" : "opacity-0"}`}
         />
       ))}
     </div>
