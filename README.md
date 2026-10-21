@@ -18,7 +18,7 @@ npm run build
 
 ## Admin access
 
-Admins sign in at `/admin/sign-in`. To create an account, set `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAILS`, and `ADMIN_SETUP_CODE`, open `/admin/setup`, and enter the setup code, an email on `ADMIN_EMAILS`, and a password of at least 12 characters. Remove `ADMIN_SETUP_CODE` (and redeploy) once accounts exist.
+Admins sign in at `/admin/sign-in`. To create an account, set `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAILS`, and `ADMIN_SETUP_CODE`, open `/admin/setup`, and enter the setup code, an email on `ADMIN_EMAILS`, and a password of at least 12 characters. `ADMIN_SETUP_CODE` stays set so more admins can be added later: add their email to `ADMIN_EMAILS`, redeploy, and have them sign up soon. Keep the code private.
 
 ## Credits
 

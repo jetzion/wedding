@@ -855,7 +855,7 @@ Decisions made by the couple that refine this specification. They take precedenc
 ### Administrators (decided 2026-10-20)
 
 - **Admins:** Daniella, Greg, and the wedding planner. Configured as an email allowlist in the `ADMIN_EMAILS` environment variable; real addresses not yet provided.
-- **Sign-in (decided 2026-10-21):** email and password through Better Auth, at least 12 characters, stored only as a hash. There is no public sign-up. Accounts are created once on `/admin/setup`, which requires the `ADMIN_SETUP_CODE` secret and an email on `ADMIN_EMAILS`; the setup code is removed after use. Every admin page and action re-checks the session and the allowlist on the server, so removing an email from `ADMIN_EMAILS` revokes access.
+- **Sign-in (decided 2026-10-21):** email and password through Better Auth, at least 12 characters, stored only as a hash. There is no public sign-up. Accounts are created on `/admin/setup`, which requires the `ADMIN_SETUP_CODE` secret and an email on `ADMIN_EMAILS` that has no account yet. The setup code stays set so admins can be added later (decided 2026-10-21); new admins should sign up soon after their email is added. Every admin page and action re-checks the session and the allowlist on the server, so removing an email from `ADMIN_EMAILS` revokes access.
 
 ### RSVP lookup by guest name (decided 2026-10-20)
 
