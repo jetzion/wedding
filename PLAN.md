@@ -6,7 +6,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 
 In order:
 
-1. Admin: create (done), edit, and delete invitations (people, plus-one slot, invitation name, contact email), with confirmation before deleting.
+1. Admin: create (done), edit, and delete (done) invitations (people, plus-one slot, invitation name, contact email), with confirmation before deleting.
 2. Admin: correct a guest's RSVP answer.
 3. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin.
 4. Admin: search and filter the invitation list; CSV export of guests and RSVPs.
@@ -59,7 +59,8 @@ In order:
 
 - [x] Invitation list at `/admin`: totals, each person with their status (attending, declined, awaiting response), dietary and accessibility notes, contact email, confirmation code, note
 - [x] Create invitations at `/admin/invitations/new`: name, optional contact email, up to 6 people (first and last name required), optional plus-one; every guest is invited to every event
-- [ ] Edit and delete invitations (next)
+- [x] Delete invitations: "Delete" on each card opens a confirmation page; guests, event links, and RSVP answers go with it (cascade)
+- [ ] Edit invitations (next)
 - [ ] Correct a guest's RSVP answer
 - [ ] Search and filter; CSV export
 - [ ] Audit records for deletions and RSVP corrections (docs/SPEC.md section 6)

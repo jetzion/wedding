@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cardClass } from "@/components/rsvp/fields";
 import type { AdminInvitation } from "@/lib/admin/invitations";
 import { type GuestStatus, summarize } from "@/lib/admin/status";
@@ -92,6 +93,12 @@ export function InvitationList({ invitations, timezone }: { invitations: AdminIn
               )}
             </dl>
           )}
+
+          <p className="text-right text-sm">
+            <Link href={`/admin/invitations/${invitation.id}/delete`} className="text-coral underline">
+              Delete
+            </Link>
+          </p>
         </li>
       ))}
     </ul>

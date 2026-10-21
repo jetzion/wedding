@@ -5,9 +5,13 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { navLinks } from "@/lib/nav";
 
+/** Main navigation with the current page marked. Reads the URL, so render it inside Suspense. */
+export function ActiveSiteNav() {
+  return <SiteNav pathname={usePathname()} />;
+}
+
 /** Main navigation: inline links on desktop, a toggle menu on mobile. */
-export function SiteNav() {
-  const pathname = usePathname();
+export function SiteNav({ pathname }: { pathname?: string }) {
   const [open, setOpen] = useState(false);
 
   const links = navLinks.map(({ href, label }) => (

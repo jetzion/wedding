@@ -1,5 +1,5 @@
 import "server-only";
-import { asc } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { events, guestEvents, guests, households, rsvpResponses } from "@/db/schema";
 import { requireAdmin } from "@/lib/admin/session";
@@ -86,4 +86,15 @@ export async function createInvitation(input: InvitationInput) {
     db.insert(guests).values(guestRows),
     db.insert(guestEvents).values(guestRows.flatMap((g) => eventRows.map((e) => ({ guestId: g.id, eventId: e.id })))),
   ]);
+}
+
+/** One invitation by id, or undefined. Admins only. */
+export async function getInvitation(id: string) {
+  return (await listInvitations()).find((i) => i.id === id);
+}
+
+/** Delete a household. Its guests, event links, and RSVP answers are removed by cascade. Admins only. */
+export async function deleteInvitation(id: string) {
+  await requireAdmin();
+  await db.delete(households).where(eq(households.id, id));
 }

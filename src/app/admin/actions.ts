@@ -4,9 +4,10 @@ import { createHash, timingSafeEqual } from "node:crypto";
 import { APIError } from "better-auth/api";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { z } from "zod";
 import { isAdminEmail } from "@/lib/admin-emails";
 import { parseInvitationForm } from "@/lib/admin/invitation-input";
-import { createInvitation } from "@/lib/admin/invitations";
+import { createInvitation, deleteInvitation } from "@/lib/admin/invitations";
 import { requireAdmin } from "@/lib/admin/session";
 import { auth } from "@/lib/auth";
 import { isRateLimited } from "@/lib/rate-limit";
@@ -76,5 +77,13 @@ export async function addInvitation(_: FormResult, form: FormData): Promise<Form
   const parsed = parseInvitationForm(form);
   if (!parsed.ok) return { error: parsed.error };
   await createInvitation(parsed.data);
+  redirect("/admin");
+}
+
+/** Delete an invitation after the admin confirms on its delete page. */
+export async function removeInvitation(form: FormData) {
+  await requireAdmin();
+  const id = z.uuid().parse(form.get("id"));
+  await deleteInvitation(id);
   redirect("/admin");
 }

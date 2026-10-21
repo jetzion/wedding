@@ -1,5 +1,6 @@
+import { Suspense } from "react";
 import Link from "next/link";
-import { SiteNav } from "@/components/site-nav";
+import { ActiveSiteNav, SiteNav } from "@/components/site-nav";
 import { getWeddingSettings } from "@/lib/settings";
 
 export async function SiteHeader() {
@@ -11,7 +12,9 @@ export async function SiteHeader() {
         <Link href="/" className="font-serif text-xl leading-tight font-medium text-balance sm:text-2xl">
           {coupleNames}
         </Link>
-        <SiteNav />
+        <Suspense fallback={<SiteNav />}>
+          <ActiveSiteNav />
+        </Suspense>
       </div>
     </header>
   );
