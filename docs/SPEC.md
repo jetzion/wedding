@@ -857,6 +857,17 @@ Decisions made by the couple that refine this specification. They take precedenc
 - **Admins:** Daniella, Greg, and the wedding planner. Configured as an email allowlist in the `ADMIN_EMAILS` environment variable; real addresses not yet provided.
 - **Sign-in (decided 2026-10-21):** email and password through Better Auth, at least 12 characters, stored only as a hash. There is no public sign-up. Accounts are created on `/admin/setup`, which requires the `ADMIN_SETUP_CODE` secret and an email on `ADMIN_EMAILS` that has no account yet. The setup code stays set so admins can be added later (decided 2026-10-21); new admins should sign up soon after their email is added. Every admin page and action re-checks the session and the allowlist on the server, so removing an email from `ADMIN_EMAILS` revokes access.
 
+### Admin invitation and RSVP management (defaults chosen 2026-10-21)
+
+Defaults set while building the admin dashboard; change them if the couple prefers otherwise.
+
+- **New invitations:** a name, an optional contact email, people with first and last names, and an optional plus-one slot. Every person is invited to every event.
+- **Editing:** renaming a person keeps their RSVP answers. Removing a person requires ticking "Remove" (blanking a name is rejected), and deletes their answers. Unticking the plus-one removes the plus-one and their answer.
+- **Deleting an invitation:** needs a confirmation page, and removes everyone on it with their answers.
+- **Correcting RSVPs:** admins can set each answer to attending, declined, or awaiting response (which clears it), and set the plus-one's name, even after the deadline. Corrections do not change the household's confirmation code or response date.
+- **Export:** CSV with one row per guest, available to admins only. Text that a spreadsheet would treat as a formula is prefixed with an apostrophe.
+- **Countdown:** the home page counts down to the wedding date in settings. It currently shows the placeholder date, contrary to the placeholder rule above; open decision in `PLAN.md`.
+
 ### RSVP lookup by guest name (decided 2026-10-20)
 
 - Guests find their invitation by typing their **first name and last name** (two fields; case and spacing ignored), matching one invited guest exactly. Invitation codes are not used.

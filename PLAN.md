@@ -4,13 +4,20 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 
 ## Next steps
 
-In order:
+Ready to build now:
 
-1. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin (on hold: keeping them for testing for now).
-2. Real wedding date, venue, and RSVP deadline (open decisions below), then the homepage details and countdown.
-3. Add Daniella, Greg, and the planner as admins once their emails are known.
-4. Choose an email provider; send RSVP confirmation emails.
-5. End-to-end tests with Playwright: RSVP flow and admin sign-in (signed-out access is covered).
+1. End-to-end test of the RSVP flow with a fictional test household (created and removed in the development database).
+2. Audit records for invitation changes, deletions, RSVP corrections, and CSV exports (docs/SPEC.md sections 5 and 6).
+3. Optional: hide the "Chat with us" button on admin pages.
+
+Waiting on the couple:
+
+4. Countdown and the placeholder date: keep it visible, or hide it until the real date is set (open decision below).
+5. Real wedding date, venue, and RSVP deadline, then the homepage date and venue details.
+6. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin (on hold: keeping them for testing for now).
+7. Add Daniella, Greg, and the planner as admins once their emails are known.
+8. Choose an email provider; send RSVP confirmation emails.
+9. End-to-end test of admin sign-in (needs a development-only test admin account).
 
 ## Done
 
@@ -61,13 +68,15 @@ In order:
 - [x] Correct RSVP answers at `/admin/invitations/[id]/rsvp`: attending, declined, or awaiting (clears the answer) per guest and event, plus the plus-one's name; ignores the deadline; leaves the confirmation code and response date alone
 - [x] Search (invitation, guest name, email) and filter by status on `/admin` via `?q=&status=`
 - [x] CSV export at `/admin/export`: one row per guest; spreadsheet formulas defused
-- [ ] Audit records for deletions and RSVP corrections (docs/SPEC.md section 6)
-- [ ] Optional: hide the "Chat with us" button on admin pages
+- [x] `/admin/invitations` redirects to `/admin`
+- [x] Site nav reads the URL inside `<Suspense>`, so routes with dynamic params build
+- [ ] Audit records for invitation changes, deletions, RSVP corrections, and exports (next step 2)
+- [ ] Optional: hide the "Chat with us" button on admin pages (next step 3)
 
 ## Phase 2 — Public website
 
 ### 4. Homepage
-- [ ] Names, date, venue from settings
+- [ ] Names, date, venue from settings (next step 5)
 - [x] Countdown under "Our Wedding": days, hours, minutes, seconds to the wedding date in settings (placeholder date until decided)
 - [x] Hero section and RSVP button (four beach photos cross-fade every 6 seconds; reduced motion keeps the first)
 
@@ -79,23 +88,24 @@ In order:
 - [x] RSVP form: per-guest per-event answers, dietary, accessibility, email, note
 - [x] Review step, confirmation number, editable until the deadline
 - [x] Unit tests for codes and validation (Vitest)
-- [ ] Confirmation emails (needs email provider)
+- [ ] Confirmation emails (needs email provider; next step 8)
 - [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
 - [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`; remove before real invitations go out
-- [ ] Enter the real invitations in admin (create and edit are ready)
-- [x] Playwright set up (`npm run test:e2e`): public pages load; every admin page and the CSV export deny signed-out visitors
-- [ ] End-to-end: RSVP flow with a fictional test household; admin sign-in
+- [ ] Enter the real invitations in admin (create and edit are ready; next step 6)
+- [x] Playwright set up (`npm run test:e2e`): public pages load; home page countdown ticks; every admin page and the CSV export deny signed-out visitors
+- [ ] End-to-end: RSVP flow (next step 1); admin sign-in (next step 9)
 
 ## Open decisions
 
-- [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (needed for step 4)
+- [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (next step 5)
+- [ ] Countdown on the home page shows the placeholder date to guests, which conflicts with docs/SPEC.md section 16 ("Placeholders are not shown to guests"): keep it, or hide it until the real date is set (next step 4)
 - [x] First admin: jack@etzion.us (production `ADMIN_EMAILS`)
-- [ ] Admin emails for Daniella, Greg, and the planner (add to `ADMIN_EMAILS`, redeploy, sign up on `/admin/setup`)
+- [ ] Admin emails for Daniella, Greg, and the planner (add to `ADMIN_EMAILS`, redeploy, sign up on `/admin/setup`; next step 7)
 - [x] Plus-one rules: guest names their +1 (docs/SPEC.md section 16)
 - [x] RSVP unit: one person answers for the household (docs/SPEC.md section 16)
-- [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern)
+- [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern; next step 5)
 - [x] Venue timezone: Eastern
 - [x] Name order: Daniella first (docs/SPEC.md section 16)
 - [x] RSVP events: one combined "Ceremony & Reception" (docs/SPEC.md section 16)
-- [ ] Email provider for confirmation emails (needed for Phase 4)
+- [ ] Email provider for confirmation emails (next step 8)
 - [ ] Spelling of "Mark Grafinkel" in the Garfinkel Family placeholder (guests must type their name exactly)
