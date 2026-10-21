@@ -821,3 +821,29 @@ The wedding website is ready for launch when:
 - The site has been tested on mobile and desktop.
 - No critical security, accessibility, or functionality issues remain.
 
+
+---
+
+## 16. Product Decisions
+
+Decisions made by the couple that refine this specification. They take precedence over the general requirements above.
+
+### RSVP (decided 2026-10-20)
+
+- **Events requiring RSVP:** ceremony and reception only.
+- **Meals:** no meal selection. Dietary restrictions and accessibility requests are still collected.
+- **Plus-ones:** guests with a plus-one allowance enter their plus-one's name. Guests without an allowance cannot add anyone.
+- **Children:** adults only. Households contain adult guests only.
+- **RSVP unit:** one person answers for the whole household, for every guest on the invitation.
+- **Deadline:** an RSVP deadline is enforced. The date is configurable by an administrator (not yet set).
+- **Confirmation email:** sent after each submission or change, when email delivery is configured.
+- **Deadline placeholder:** June 1, 2027, 11:59 PM Eastern, until the real date is set.
+
+### Wedding date and timezone (decided 2026-10-20)
+
+- **Timezone:** Eastern (`America/New_York`), confirmed for the venue.
+- **Wedding date placeholder:** Saturday, August 14, 2027, 5:00 PM Eastern, until the real date is set. Placeholders are not shown to guests or given to the chat.
+
+### Administrators (decided 2026-10-20)
+
+- **Admins:** Greg, Daniella, and the wedding planner. Configured as an email allowlist in the `ADMIN_EMAILS` environment variable; real addresses not yet provided.
