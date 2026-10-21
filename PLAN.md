@@ -55,6 +55,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Unit tests for codes and validation (Vitest)
 - [ ] Confirmation emails (needs email provider)
 - [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
+- [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`
 - [ ] Creating real invitations (needs admin dashboard; dev uses `npm run invite:test`)
 - [ ] End-to-end tests with Playwright
 
