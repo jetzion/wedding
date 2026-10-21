@@ -849,6 +849,8 @@ Decisions made by the couple that refine this specification. They take precedenc
 
 - **Couple's name:** "Daniella Etzion & Greg Garfinkel", stored in wedding settings (migration `0005`).
 - **First names:** Daniella first, then Greg (migration `0006`). Wherever both names appear together, Daniella comes first.
+- **Our Story:** every section that shows both of them (Meet the Couple, Growing up, Graduation, How we met, love notes) lists Daniella first.
+- **Exception:** engagement photo descriptions keep the order of what the photo shows (for example "Greg on one knee…").
 
 ### Administrators (decided 2026-10-20)
 

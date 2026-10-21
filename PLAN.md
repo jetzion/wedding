@@ -11,6 +11,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Coastal theme: color tokens, fonts, focus states, reduced motion, placeholder homepage
 
 - [x] Florida white-sand beach theme with photo banners on every page
+- [x] Darker `sand-edge` color for every line and outline (text boxes, dividers, answer buttons); cards outlined in it
 - [x] Wedding Q&A chat (OpenRouter), answers only from public wedding info
 
 ## Phase 1 — Foundation
