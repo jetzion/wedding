@@ -43,7 +43,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 ### 4. Homepage
 - [ ] Names, date, venue from settings
 - [ ] Countdown using the configured timezone
-- [ ] Hero section and RSVP button
+- [x] Hero section and RSVP button (four beach photos cross-fade every 6 seconds; reduced motion keeps the first)
 
 ## Phase 3 — RSVP
 
@@ -65,4 +65,6 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] RSVP unit: one person answers for the household (docs/SPEC.md section 16)
 - [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern)
 - [x] Venue timezone: Eastern
+- [x] Name order: Daniella first (docs/SPEC.md section 16)
+- [x] RSVP events: one combined "Ceremony & Reception" (docs/SPEC.md section 16)
 - [ ] Email provider for confirmation emails (needed for Phase 4)

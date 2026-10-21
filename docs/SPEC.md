@@ -844,6 +844,11 @@ Decisions made by the couple that refine this specification. They take precedenc
 - **Timezone:** Eastern (`America/New_York`), confirmed for the venue.
 - **Wedding date placeholder:** Saturday, August 14, 2027, 5:00 PM Eastern, until the real date is set. Placeholders are not shown to guests or given to the chat.
 
+### Name order (decided 2026-10-20)
+
+- **Couple's name:** "Daniella Etzion & Greg Garfinkel", stored in wedding settings (migration `0005`).
+- **First names:** Daniella first, then Greg (migration `0006`). Wherever both names appear together, Daniella comes first.
+
 ### Administrators (decided 2026-10-20)
 
 - **Admins:** Daniella, Greg, and the wedding planner. Configured as an email allowlist in the `ADMIN_EMAILS` environment variable; real addresses not yet provided.
