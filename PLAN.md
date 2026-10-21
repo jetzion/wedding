@@ -54,6 +54,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Review step, confirmation number, editable until the deadline
 - [x] Unit tests for codes and validation (Vitest)
 - [ ] Confirmation emails (needs email provider)
+- [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
 - [ ] Creating real invitations (needs admin dashboard; dev uses `npm run invite:test`)
 - [ ] End-to-end tests with Playwright
 

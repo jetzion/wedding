@@ -57,6 +57,13 @@
       "when": 1792548482712,
       "tag": "0007_combine_ceremony_reception",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792550125377,
+      "tag": "0008_multi_person_test_invitation",
+      "breakpoints": true
     }
   ]
 }
