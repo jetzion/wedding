@@ -835,6 +835,7 @@ Decisions made by the couple that refine this specification. They take precedenc
 - **Plus-ones:** guests with a plus-one allowance enter their plus-one's name. Guests without an allowance cannot add anyone.
 - **Children:** adults only. Households contain adult guests only.
 - **RSVP unit:** one person answers for the whole household, for every guest on the invitation.
+- **People on an invitation:** an invitation can include several people, each listed by first and last name. Entering any one of their names shows everyone on that invitation, and each person must be answered before the RSVP can be sent.
 - **Deadline:** an RSVP deadline is enforced. The date is configurable by an administrator (not yet set).
 - **Confirmation email:** sent after each submission or change, when email delivery is configured.
 - **Deadline placeholder:** June 1, 2027, 11:59 PM Eastern, until the real date is set.
