@@ -38,7 +38,8 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Sign-in page (`/admin/sign-in`), email and password, 12-character minimum
 - [x] Admin email allowlist, no public sign-up (endpoint disabled); one-time setup page (`/admin/setup`) gated by `ADMIN_SETUP_CODE`
 - [x] Protect everything under `/admin`: `requireAdmin()` in every admin page and action
-- [ ] Production: set `BETTER_AUTH_SECRET`, `ADMIN_EMAILS`, `ADMIN_SETUP_CODE` in Vercel; create the account; remove `ADMIN_SETUP_CODE`
+- [x] Production: `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAILS` set in Vercel
+- [ ] Production: set `ADMIN_SETUP_CODE`, create the account, then remove `ADMIN_SETUP_CODE`
 - [ ] Invitation list, create, edit, delete (next)
 
 ## Phase 2 — Public website
