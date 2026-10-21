@@ -45,6 +45,18 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [ ] Countdown using the configured timezone
 - [ ] Hero section and RSVP button
 
+## Phase 3 — RSVP
+
+- [x] Tables: households, guests (incl. plus-one slots), guest_events, rsvp_responses
+- [x] Invitation codes (8 chars, stored hashed), rate-limited lookup and submit
+- [x] Server-side validation: guests, event eligibility, plus-one names, deadline
+- [x] RSVP form: per-guest per-event answers, dietary, accessibility, email, note
+- [x] Review step, confirmation number, editable until the deadline
+- [x] Unit tests for codes and validation (Vitest)
+- [ ] Confirmation emails (needs email provider)
+- [ ] Creating real invitations (needs admin dashboard; dev uses `npm run invite:test`)
+- [ ] End-to-end tests with Playwright
+
 ## Open decisions
 
 - [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (needed for step 4)

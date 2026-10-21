@@ -27,8 +27,10 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 - `npm run db:generate` — create a migration from `src/db/schema.ts` changes
 - `npm run db:migrate` — apply migrations to the database in `.env.local` (development)
 - `npm run db:studio` — browse the database
+- `npm test` — Vitest unit tests (`src/**/*.test.ts`)
+- `npm run invite:test` — create a test household in the development database and print its code
 
-<!-- Add as they are set up: test, e2e. -->
+<!-- Add as they are set up: e2e. -->
 
 ## Layout
 
