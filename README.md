@@ -24,11 +24,11 @@ Admins sign in at `/admin/sign-in`. `/admin` lists every invitation with each pe
 
 ## Credits
 
-Placeholder photos from Unsplash (Unsplash License), until the couple's own photos are added:
+Placeholder photos, from Unsplash (Unsplash License) unless noted, until the couple's own photos are added:
 
 - Home (rotating): [Blake Wisz](https://unsplash.com/photos/turquoise-ocean-waves-gently-lap-a-white-sand-beach-0r0KWZo50KA), [Derick McKinney](https://unsplash.com/photos/white-sand-beach-under-clear-blue-sky-j2Rv2CZTwaI), [Miltiadis Fragkidis](https://unsplash.com/photos/lush-tropical-island-with-white-sand-beach-and-turquoise-sea-pwiqvi98VGo) (Punta Cana, Dominican Republic), [Annie Gray](https://unsplash.com/photos/wsZoSshuhdQ) (Pensacola Beach, FL)
 - Our Story: [Gary Runn](https://unsplash.com/photos/two-brown-wooden-folding-chairs-on-beach-during-daytime-Wx0u8dYX_y0), Destin, FL
 - Details: [Arshad Pooloo](https://unsplash.com/photos/wedding-venue-in-beach-GdwWrLHdwpw), Mauritius
 - Travel: [Adrian Botica](https://unsplash.com/photos/a-sandy-path-leading-to-the-ocean-with-sea-oats-in-the-foreground-bMCZpADgVJE), Destin, FL
 - FAQ: [Debby Hudson](https://unsplash.com/photos/aerial-photography-of-sea-at-daytime-2vB8q-Qdwrg), Pensacola Beach, FL
-- RSVP: [Carter Firquain](https://unsplash.com/photos/golden-sunset-illuminates-a-sandy-beach-ocean-and-coastal-town-IXlPJ4ej2U0), Inlet Beach, FL
+- RSVP: Maldives seaside resort (source and license to be confirmed)
