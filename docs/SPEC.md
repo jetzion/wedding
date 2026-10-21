@@ -843,7 +843,7 @@ Decisions made by the couple that refine this specification. They take precedenc
 ### Wedding date and timezone (decided 2026-10-20)
 
 - **Timezone:** Eastern (`America/New_York`), confirmed for the venue.
-- **Wedding date placeholder:** Saturday, August 14, 2027, 5:00 PM Eastern, until the real date is set. Placeholders are not shown to guests or given to the chat.
+- **Wedding date placeholder:** Saturday, August 14, 2027, 5:00 PM Eastern, until the real date is set. Placeholders are not shown to guests or given to the chat, except through the home page countdown (decided 2026-10-21).
 
 ### Name order (decided 2026-10-20)
 
@@ -866,7 +866,7 @@ Defaults set while building the admin dashboard; change them if the couple prefe
 - **Deleting an invitation:** needs a confirmation page, and removes everyone on it with their answers.
 - **Correcting RSVPs:** admins can set each answer to attending, declined, or awaiting response (which clears it), and set the plus-one's name, even after the deadline. Corrections do not change the household's confirmation code or response date.
 - **Export:** CSV with one row per guest, available to admins only. Text that a spreadsheet would treat as a formula is prefixed with an apostrophe.
-- **Countdown:** the home page counts down to the wedding date in settings. It currently shows the placeholder date, contrary to the placeholder rule above; open decision in `PLAN.md`.
+- **Countdown (decided 2026-10-21):** the home page counts down to the wedding date in settings, and stays visible while that date is the placeholder. This is the one exception to the placeholder rule above.
 
 ### RSVP lookup by guest name (decided 2026-10-20)
 

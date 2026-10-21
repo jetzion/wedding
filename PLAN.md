@@ -12,12 +12,11 @@ Ready to build now:
 
 Waiting on the couple:
 
-4. Countdown and the placeholder date: keep it visible, or hide it until the real date is set (open decision below).
-5. Real wedding date, venue, and RSVP deadline, then the homepage date and venue details.
-6. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin (on hold: keeping them for testing for now).
-7. Add Daniella, Greg, and the planner as admins once their emails are known.
-8. Choose an email provider; send RSVP confirmation emails.
-9. End-to-end test of admin sign-in (needs a development-only test admin account).
+4. Real wedding date, venue, and RSVP deadline, then the homepage date and venue details.
+5. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin (on hold: keeping them for testing for now).
+6. Add Daniella, Greg, and the planner as admins once their emails are known.
+7. Choose an email provider; send RSVP confirmation emails.
+8. End-to-end test of admin sign-in (needs a development-only test admin account).
 
 ## Done
 
@@ -76,7 +75,7 @@ Waiting on the couple:
 ## Phase 2 — Public website
 
 ### 4. Homepage
-- [ ] Names, date, venue from settings (next step 5)
+- [ ] Names, date, venue from settings (next step 4)
 - [x] Countdown under "Our Wedding": days, hours, minutes, seconds to the wedding date in settings (placeholder date until decided)
 - [x] Hero section and RSVP button (four beach photos cross-fade every 6 seconds; reduced motion keeps the first)
 
@@ -88,24 +87,24 @@ Waiting on the couple:
 - [x] RSVP form: per-guest per-event answers, dietary, accessibility, email, note
 - [x] Review step, confirmation number, editable until the deadline
 - [x] Unit tests for codes and validation (Vitest)
-- [ ] Confirmation emails (needs email provider; next step 8)
+- [ ] Confirmation emails (needs email provider; next step 7)
 - [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
 - [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`; remove before real invitations go out
-- [ ] Enter the real invitations in admin (create and edit are ready; next step 6)
+- [ ] Enter the real invitations in admin (create and edit are ready; next step 5)
 - [x] Playwright set up (`npm run test:e2e`): public pages load; home page countdown ticks; every admin page and the CSV export deny signed-out visitors
-- [ ] End-to-end: RSVP flow (next step 1); admin sign-in (next step 9)
+- [ ] End-to-end: RSVP flow (next step 1); admin sign-in (next step 8)
 
 ## Open decisions
 
-- [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (next step 5)
-- [ ] Countdown on the home page shows the placeholder date to guests, which conflicts with docs/SPEC.md section 16 ("Placeholders are not shown to guests"): keep it, or hide it until the real date is set (next step 4)
+- [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (next step 4)
+- [x] Countdown stays visible with the placeholder date until the real date is set (docs/SPEC.md section 16)
 - [x] First admin: jack@etzion.us (production `ADMIN_EMAILS`)
-- [ ] Admin emails for Daniella, Greg, and the planner (add to `ADMIN_EMAILS`, redeploy, sign up on `/admin/setup`; next step 7)
+- [ ] Admin emails for Daniella, Greg, and the planner (add to `ADMIN_EMAILS`, redeploy, sign up on `/admin/setup`; next step 6)
 - [x] Plus-one rules: guest names their +1 (docs/SPEC.md section 16)
 - [x] RSVP unit: one person answers for the household (docs/SPEC.md section 16)
-- [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern; next step 5)
+- [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern; next step 4)
 - [x] Venue timezone: Eastern
 - [x] Name order: Daniella first (docs/SPEC.md section 16)
 - [x] RSVP events: one combined "Ceremony & Reception" (docs/SPEC.md section 16)
-- [ ] Email provider for confirmation emails (next step 8)
+- [ ] Email provider for confirmation emails (next step 7)
 - [ ] Spelling of "Mark Grafinkel" in the Garfinkel Family placeholder (guests must type their name exactly)
