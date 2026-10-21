@@ -1,19 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
 import heroBeach from "@/assets/hero-beach.jpg";
+import heroBeachDunes from "@/assets/hero-beach-dunes.jpg";
+import heroBeachSandbar from "@/assets/hero-beach-sandbar.jpg";
+import heroBeachShore from "@/assets/hero-beach-shore.jpg";
+import { HeroSlideshow } from "@/components/hero-slideshow";
+
+const heroImages = [heroBeach, heroBeachShore, heroBeachSandbar, heroBeachDunes];
 
 export default function Home() {
   return (
     <main className="relative flex flex-1 items-center justify-center px-4 py-24">
-      <Image
-        src={heroBeach}
-        alt=""
-        fill
-        preload
-        placeholder="blur"
-        sizes="(max-width: 768px) 250vw, 100vw"
-        className="-z-10 object-cover"
-      />
+      <HeroSlideshow images={heroImages} />
       <div className="flex max-w-xl flex-col items-center gap-6 rounded-3xl bg-sand/85 px-8 py-12 text-center shadow-sm backdrop-blur-sm sm:px-14">
         <p className="text-sm uppercase tracking-[0.3em] text-ink-muted">
           Save the date

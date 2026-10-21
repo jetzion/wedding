@@ -20,7 +20,7 @@ npm run build
 
 Placeholder photos from Unsplash (Unsplash License), until the couple's own photos are added:
 
-- Home: [Blake Wisz](https://unsplash.com/photos/turquoise-ocean-waves-gently-lap-a-white-sand-beach-0r0KWZo50KA)
+- Home: [Blake Wisz](https://unsplash.com/photos/turquoise-ocean-waves-gently-lap-a-white-sand-beach-0r0KWZo50KA), [Derick McKinney](https://unsplash.com/photos/white-sand-beach-under-clear-blue-sky-j2Rv2CZTwaI), [Ryan Geller](https://unsplash.com/photos/aerial-view-of-white-sand-beach-during-daytime--Yo8Y7CqVlk) (Little Pipe Cay, Bahamas), [Kelly Dbv](https://unsplash.com/photos/island-with-white-sand-m3GnbH5afbY)
 - Our Story: [Gary Runn](https://unsplash.com/photos/two-brown-wooden-folding-chairs-on-beach-during-daytime-Wx0u8dYX_y0), Destin, FL
 - Details: [Arshad Pooloo](https://unsplash.com/photos/wedding-venue-in-beach-GdwWrLHdwpw), Mauritius
 - Travel: [Adrian Botica](https://unsplash.com/photos/a-sandy-path-leading-to-the-ocean-with-sea-oats-in-the-foreground-bMCZpADgVJE), Destin, FL
