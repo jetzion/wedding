@@ -10,7 +10,7 @@ In order:
 2. Real wedding date, venue, and RSVP deadline (open decisions below), then the homepage details and countdown.
 3. Add Daniella, Greg, and the planner as admins once their emails are known.
 4. Choose an email provider; send RSVP confirmation emails.
-5. End-to-end tests with Playwright (RSVP flow, admin sign-in, admin access denied when signed out).
+5. End-to-end tests with Playwright: RSVP flow and admin sign-in (signed-out access is covered).
 
 ## Done
 
@@ -83,7 +83,8 @@ In order:
 - [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
 - [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`; remove before real invitations go out
 - [ ] Enter the real invitations in admin (create and edit are ready)
-- [ ] End-to-end tests with Playwright
+- [x] Playwright set up (`npm run test:e2e`): public pages load; every admin page and the CSV export deny signed-out visitors
+- [ ] End-to-end: RSVP flow with a fictional test household; admin sign-in
 
 ## Open decisions
 

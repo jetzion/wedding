@@ -28,9 +28,8 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 - `npm run db:migrate` — apply migrations to the database in `.env.local` (development)
 - `npm run db:studio` — browse the database
 - `npm test` — Vitest unit tests (`src/**/*.test.ts`)
+- `npm run test:e2e` — Playwright tests (`e2e/`, mobile viewport) against a dev server on port 3100 and the development database; with a dev server already running, `E2E_PORT=<its port> npm run test:e2e`. First run: `npx playwright install chromium`
 - `npm run invite:test -- "Household" "First Last" ["First Last" ...] [--plus-one]` — create a test household with one or more guests in the development database
-
-<!-- Add as they are set up: e2e. -->
 
 ## Layout
 
