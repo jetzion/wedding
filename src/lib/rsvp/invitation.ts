@@ -1,17 +1,33 @@
 import { asc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { events, guestEvents, guests, households, rsvpResponses } from "@/db/schema";
-import { generateConfirmationCode, hashCode } from "@/lib/rsvp/code";
+import { generateConfirmationCode, normalizeName } from "@/lib/rsvp/code";
 import type { Invitation, RsvpStatus } from "@/lib/rsvp/types";
 import type { Submission } from "@/lib/rsvp/validate";
 import { getWeddingSettings } from "@/lib/settings";
 
-/** Load one household's invitation by its code, or null if no household matches. */
-export async function loadInvitation(code: string) {
-  const [household] = await db
-    .select()
+/** A name column normalized the same way as normalizeName. */
+const normalized = (column: typeof guests.firstName | typeof guests.lastName) =>
+  sql`lower(regexp_replace(trim(${column}), '\\s+', ' ', 'g'))`;
+
+/** Households with an invited guest (not a plus-one) of this first and last name, at most 10. */
+export async function findHouseholds(firstName: string, lastName: string) {
+  return db
+    .selectDistinct({ id: households.id, name: households.name })
     .from(households)
-    .where(eq(households.codeHash, hashCode(code)));
+    .innerJoin(guests, eq(guests.householdId, households.id))
+    .where(
+      sql`not ${guests.isPlusOne}
+        and ${normalized(guests.firstName)} = ${normalizeName(firstName)}
+        and ${normalized(guests.lastName)} = ${normalizeName(lastName)}`,
+    )
+    .orderBy(asc(households.name))
+    .limit(10);
+}
+
+/** Load one household's invitation, or null if it does not exist. */
+export async function loadInvitation(householdId: string) {
+  const [household] = await db.select().from(households).where(eq(households.id, householdId));
   if (!household) return null;
 
   const guestRows = await db

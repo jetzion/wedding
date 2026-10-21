@@ -1,30 +1,41 @@
 import { describe, expect, it } from "vitest";
-import { generateConfirmationCode, generateInvitationCode, hashCode, normalizeCode } from "@/lib/rsvp/code";
+import { generateConfirmationCode, normalizeName, pickHousehold } from "@/lib/rsvp/code";
 
-describe("invitation codes", () => {
-  it("generates codes in XXXX-XXXX form without look-alike characters", () => {
+describe("confirmation codes", () => {
+  it("generates references in GD-XXXXXX form without look-alike characters", () => {
     for (let i = 0; i < 200; i++) {
-      expect(generateInvitationCode()).toMatch(/^[A-HJKMNP-Z2-9]{4}-[A-HJKMNP-Z2-9]{4}$/);
+      expect(generateConfirmationCode()).toMatch(/^GD-[A-HJKMNP-Z2-9]{6}$/);
     }
   });
 
-  it("generates unique codes", () => {
-    const codes = new Set(Array.from({ length: 1000 }, generateInvitationCode));
+  it("generates unique references", () => {
+    const codes = new Set(Array.from({ length: 1000 }, generateConfirmationCode));
     expect(codes.size).toBe(1000);
   });
+});
 
-  it("normalizes case, spaces, and dashes", () => {
-    expect(normalizeCode(" k7qm r2xh ")).toBe("K7QMR2XH");
-    expect(normalizeCode("K7QM-R2XH")).toBe("K7QMR2XH");
+describe("pickHousehold", () => {
+  const rivera1 = { id: "h1", name: "The Rivera Household" };
+  const rivera2 = { id: "h2", name: "Rivera Family" };
+
+  it("picks the only match when no household is requested", () => {
+    expect(pickHousehold([rivera1])).toBe(rivera1);
   });
 
-  it("hashes equivalent codes identically and never returns the code itself", () => {
-    expect(hashCode("k7qm-r2xh")).toBe(hashCode("K7QM R2XH"));
-    expect(hashCode("K7QM-R2XH")).toMatch(/^[0-9a-f]{64}$/);
-    expect(hashCode("K7QM-R2XH")).not.toBe(hashCode("K7QM-R2XJ"));
+  it("asks to choose when several households match", () => {
+    expect(pickHousehold([rivera1, rivera2])).toBeUndefined();
   });
 
-  it("generates confirmation references in GD-XXXXXX form", () => {
-    expect(generateConfirmationCode()).toMatch(/^GD-[A-HJKMNP-Z2-9]{6}$/);
+  it("allows a requested household only if it matched the guest's name", () => {
+    expect(pickHousehold([rivera1, rivera2], "h2")).toBe(rivera2);
+    expect(pickHousehold([rivera1], "some-other-household")).toBeUndefined();
+    expect(pickHousehold([], "h1")).toBeUndefined();
+  });
+});
+
+describe("normalizeName", () => {
+  it("ignores case, outer spaces, and repeated inner spaces", () => {
+    expect(normalizeName("  Rivera ")).toBe("rivera");
+    expect(normalizeName("VAN   der Berg")).toBe("van der berg");
   });
 });

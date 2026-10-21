@@ -55,12 +55,11 @@ export const events = pgTable("events", {
 
 /**
  * An invitation group. One person answers for the whole household.
- * The invitation code is stored only as a SHA-256 hash.
+ * Guests find their household by last name (docs/SPEC.md section 16).
  */
 export const households = pgTable("households", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
-  codeHash: text("code_hash").notNull().unique(),
   contactEmail: text("contact_email"),
   message: text("message"),
   confirmationCode: text("confirmation_code").unique(),

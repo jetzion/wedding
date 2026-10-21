@@ -48,7 +48,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 ## Phase 3 — RSVP
 
 - [x] Tables: households, guests (incl. plus-one slots), guest_events, rsvp_responses
-- [x] Invitation codes (8 chars, stored hashed), rate-limited lookup and submit
+- [x] Lookup by first + last name with household picker (accepted risk in docs/SPEC.md section 16), rate-limited
 - [x] Server-side validation: guests, event eligibility, plus-one names, deadline
 - [x] RSVP form: per-guest per-event answers, dietary, accessibility, email, note
 - [x] Review step, confirmation number, editable until the deadline

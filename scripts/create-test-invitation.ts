@@ -1,7 +1,8 @@
 /**
- * Create a test household invited to every event, and print its code.
+ * Create a test household invited to every event.
  * Development only: uses DATABASE_URL from .env.local.
- * Usage: npm run invite:test
+ * Usage: npm run invite:test -- "Household name" "First Last" "First Last" [--plus-one]
+ * Example: npm run invite:test -- "The Rivera Household" "Alex Rivera" "Sam Rivera" --plus-one
  */
 import { loadEnvConfig } from "@next/env";
 
@@ -9,20 +10,21 @@ async function main() {
   loadEnvConfig(process.cwd());
   const { db } = await import("@/db");
   const { events, guestEvents, guests, households } = await import("@/db/schema");
-  const { generateInvitationCode, hashCode } = await import("@/lib/rsvp/code");
 
-  const code = generateInvitationCode();
-  const [household] = await db
-    .insert(households)
-    .values({ name: "The Rivera Household", codeHash: hashCode(code) })
-    .returning();
+  const args = process.argv.slice(2);
+  const plusOne = args.includes("--plus-one");
+  const [householdName, ...people] = args.filter((a) => a !== "--plus-one");
+  if (!householdName || !people.length) throw new Error("Usage: invite:test -- \"Household\" \"First Last\" [--plus-one]");
 
+  const [household] = await db.insert(households).values({ name: householdName }).returning();
   const guestRows = await db
     .insert(guests)
     .values([
-      { householdId: household.id, firstName: "Alex", lastName: "Rivera", sortOrder: 1 },
-      { householdId: household.id, firstName: "Sam", lastName: "Rivera", sortOrder: 2 },
-      { householdId: household.id, isPlusOne: true, sortOrder: 3 },
+      ...people.map((person, i) => {
+        const [firstName, ...rest] = person.split(" ");
+        return { householdId: household.id, firstName, lastName: rest.join(" "), sortOrder: i + 1 };
+      }),
+      ...(plusOne ? [{ householdId: household.id, isPlusOne: true, sortOrder: people.length + 1 }] : []),
     ])
     .returning();
 
@@ -32,8 +34,6 @@ async function main() {
     .values(guestRows.flatMap((g) => eventRows.map((e) => ({ guestId: g.id, eventId: e.id }))));
 
   console.log(`Created "${household.name}" with ${guestRows.length} guests and ${eventRows.length} events.`);
-  console.log(`Invitation code: ${code}`);
-  console.log(`Link: http://localhost:3000/rsvp?code=${code}`);
 }
 
 main();

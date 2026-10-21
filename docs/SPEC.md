@@ -847,3 +847,10 @@ Decisions made by the couple that refine this specification. They take precedenc
 ### Administrators (decided 2026-10-20)
 
 - **Admins:** Greg, Daniella, and the wedding planner. Configured as an email allowlist in the `ADMIN_EMAILS` environment variable; real addresses not yet provided.
+
+### RSVP lookup by guest name (decided 2026-10-20)
+
+- Guests find their invitation by typing their **first name and last name** (two fields; case and spacing ignored), matching one invited guest exactly. Invitation codes are not used.
+- If several households have an invited guest with that full name, the guest picks from a list of household names; nothing else is shown until they choose.
+- Only invited guests' names match, not plus-one names entered by guests.
+- **Accepted risk:** this departs from section 3.4 and section 8 ("sufficiently unpredictable" tokens). Anyone who knows an invited guest's full name can view and change that household's RSVP, including dietary and accessibility notes and the contact email. The couple chose this for convenience. Lookups and submissions stay rate-limited, and every submission is re-checked on the server.
