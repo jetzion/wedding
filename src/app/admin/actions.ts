@@ -8,6 +8,8 @@ import { z } from "zod";
 import { isAdminEmail } from "@/lib/admin-emails";
 import { parseInvitationForm } from "@/lib/admin/invitation-input";
 import { createInvitation, deleteInvitation, updateInvitation } from "@/lib/admin/invitations";
+import { loadHouseholdRsvp, saveRsvpCorrection } from "@/lib/admin/rsvp";
+import { parseRsvpCorrection } from "@/lib/admin/rsvp-correction";
 import { requireAdmin } from "@/lib/admin/session";
 import { auth } from "@/lib/auth";
 import { isRateLimited } from "@/lib/rate-limit";
@@ -96,5 +98,16 @@ export async function editInvitation(_: FormResult, form: FormData): Promise<For
   if (!parsed.ok) return { error: parsed.error };
   const error = await updateInvitation(id, parsed.data);
   if (error) return { error };
+  redirect("/admin");
+}
+
+/** Save an admin's correction to one household's RSVP answers. */
+export async function correctRsvp(_: FormResult, form: FormData): Promise<FormResult> {
+  await requireAdmin();
+  const loaded = await loadHouseholdRsvp(String(form.get("id") ?? ""));
+  if (!loaded) return { error: "This invitation no longer exists." };
+  const parsed = parseRsvpCorrection(loaded.invitation.guests, form);
+  if (!parsed.ok) return { error: parsed.error };
+  await saveRsvpCorrection(parsed.data);
   redirect("/admin");
 }

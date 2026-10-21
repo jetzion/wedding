@@ -95,6 +95,9 @@ export function InvitationList({ invitations, timezone }: { invitations: AdminIn
           )}
 
           <p className="flex justify-end gap-4 text-sm">
+            <Link href={`/admin/invitations/${invitation.id}/rsvp`} className="text-sea underline">
+              Correct RSVP
+            </Link>
             <Link href={`/admin/invitations/${invitation.id}/edit`} className="text-sea underline">
               Edit
             </Link>
