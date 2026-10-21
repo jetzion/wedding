@@ -1,37 +1,57 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { signOut } from "@/app/admin/actions";
+import { InvitationFilterForm } from "@/components/admin/invitation-filter";
 import { InvitationList, InvitationSummary } from "@/components/admin/invitation-list";
 import { primaryButton, secondaryButton } from "@/components/rsvp/fields";
+import { filterInvitations, readFilter } from "@/lib/admin/filter";
 import { listInvitations } from "@/lib/admin/invitations";
 import { requireAdmin } from "@/lib/admin/session";
 import { getWeddingSettings } from "@/lib/settings";
 
-export default function Page() {
+export default function Page({ searchParams }: PageProps<"/admin">) {
   return (
     <div className="mx-auto w-full max-w-3xl space-y-8">
       <h1 className="text-center font-serif text-4xl">Invitations</h1>
       <Suspense fallback={<p className="text-center text-ink-muted">Loading invitations…</p>}>
-        <Dashboard />
+        {searchParams.then((params) => (
+          <Dashboard params={params} />
+        ))}
       </Suspense>
     </div>
   );
 }
 
 /** Admin-only content. Reads the session per request and redirects anyone who is not an admin. */
-async function Dashboard() {
+async function Dashboard({ params }: { params: Record<string, string | string[] | undefined> }) {
   const session = await requireAdmin();
   const [invitations, settings] = await Promise.all([listInvitations(), getWeddingSettings()]);
+  const filter = readFilter(params);
+  const shown = filterInvitations(invitations, filter);
+  const filtering = Boolean(filter.q || filter.status);
 
   return (
     <>
       <InvitationSummary invitations={invitations} />
-      <div className="text-center">
+      <div className="flex flex-wrap justify-center gap-3">
         <Link href="/admin/invitations/new" className={primaryButton}>
           Add invitation
         </Link>
+        <a href="/admin/export" download className={secondaryButton}>
+          Export CSV
+        </a>
       </div>
-      <InvitationList invitations={invitations} timezone={settings.timezone} />
+      <InvitationFilterForm filter={filter} />
+      {filtering && (
+        <p className="text-center text-sm text-ink-muted">
+          Showing {shown.length} of {invitations.length} invitations
+        </p>
+      )}
+      {filtering && !shown.length ? (
+        <p className="text-center text-ink-muted">No invitations match.</p>
+      ) : (
+        <InvitationList invitations={shown} timezone={settings.timezone} />
+      )}
       <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-ink-muted">
         <span>Signed in as {session.user.email}</span>
         <form action={signOut}>

@@ -6,12 +6,11 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 
 In order:
 
-1. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin.
-2. Admin: search and filter the invitation list; CSV export of guests and RSVPs.
-3. Real wedding date, venue, and RSVP deadline (open decisions below), then the homepage details and countdown.
-4. Add Daniella, Greg, and the planner as admins once their emails are known.
-5. Choose an email provider; send RSVP confirmation emails.
-6. End-to-end tests with Playwright (RSVP flow, admin sign-in, admin access denied when signed out).
+1. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin (on hold: keeping them for testing for now).
+2. Real wedding date, venue, and RSVP deadline (open decisions below), then the homepage details and countdown.
+3. Add Daniella, Greg, and the planner as admins once their emails are known.
+4. Choose an email provider; send RSVP confirmation emails.
+5. End-to-end tests with Playwright (RSVP flow, admin sign-in, admin access denied when signed out).
 
 ## Done
 
@@ -60,7 +59,8 @@ In order:
 - [x] Delete invitations: "Delete" on each card opens a confirmation page; guests, event links, and RSVP answers go with it (cascade)
 - [x] Edit invitations: name, email, rename people (keeps their RSVP answer), add people, remove people (explicit checkbox), plus-one slot on/off; a stale form changes nothing
 - [x] Correct RSVP answers at `/admin/invitations/[id]/rsvp`: attending, declined, or awaiting (clears the answer) per guest and event, plus the plus-one's name; ignores the deadline; leaves the confirmation code and response date alone
-- [ ] Search and filter; CSV export
+- [x] Search (invitation, guest name, email) and filter by status on `/admin` via `?q=&status=`
+- [x] CSV export at `/admin/export`: one row per guest; spreadsheet formulas defused
 - [ ] Audit records for deletions and RSVP corrections (docs/SPEC.md section 6)
 - [ ] Optional: hide the "Chat with us" button on admin pages
 
