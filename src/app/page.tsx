@@ -1,11 +1,11 @@
 import Link from "next/link";
 import heroBeach from "@/assets/hero-beach.jpg";
 import heroBeachPensacola from "@/assets/hero-beach-pensacola.jpg";
-import heroBeachSandbar from "@/assets/hero-beach-sandbar.jpg";
+import heroBeachPalms from "@/assets/hero-beach-palms.jpg";
 import heroBeachShore from "@/assets/hero-beach-shore.jpg";
 import { HeroSlideshow } from "@/components/hero-slideshow";
 
-const heroImages = [heroBeach, heroBeachShore, heroBeachSandbar, heroBeachPensacola];
+const heroImages = [heroBeach, heroBeachShore, heroBeachPalms, heroBeachPensacola];
 
 export default function Home() {
   return (
