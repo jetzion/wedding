@@ -11,9 +11,9 @@ export type Photo = { src: StaticImageData; alt: string } | null;
 
 export const couple = [
   {
-    name: "Greg",
+    name: "Daniella",
     photo: null as Photo,
-    bio: "[A few sentences about Greg: who he is, what he does, what makes him smile.]",
+    bio: "[A few sentences about Daniella: who she is, what she does, what makes her smile.]",
     facts: [
       { label: "Hometown", value: "[Hometown]" },
       { label: "Job", value: "[Job]" },
@@ -22,9 +22,9 @@ export const couple = [
     ],
   },
   {
-    name: "Daniella",
+    name: "Greg",
     photo: null as Photo,
-    bio: "[A few sentences about Daniella: who she is, what she does, what makes her smile.]",
+    bio: "[A few sentences about Greg: who he is, what he does, what makes him smile.]",
     facts: [
       { label: "Hometown", value: "[Hometown]" },
       { label: "Job", value: "[Job]" },
@@ -36,16 +36,16 @@ export const couple = [
 
 export const childhood = [
   {
-    name: "Greg",
-    photo: null as Photo,
-    place: "[Where Greg grew up]",
-    text: "[A favorite childhood memory, family, or what little Greg was like.]",
-  },
-  {
     name: "Daniella",
     photo: null as Photo,
     place: "[Where Daniella grew up]",
     text: "[A favorite childhood memory, family, or what little Daniella was like.]",
+  },
+  {
+    name: "Greg",
+    photo: null as Photo,
+    place: "[Where Greg grew up]",
+    text: "[A favorite childhood memory, family, or what little Greg was like.]",
   },
 ];
 
@@ -76,8 +76,8 @@ export const howWeMet = {
   date: "[Date]",
   place: "[Place]",
   perspectives: [
-    { name: "Greg", text: "[How Greg remembers the day they met.]" },
     { name: "Daniella", text: "[How Daniella remembers the day they met.]" },
+    { name: "Greg", text: "[How Greg remembers the day they met.]" },
   ],
 };
 
