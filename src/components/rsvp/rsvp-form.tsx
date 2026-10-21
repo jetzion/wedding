@@ -88,7 +88,7 @@ export function RsvpForm({
           required
         />
         <TextArea
-          label="A note for Greg & Daniella (optional)"
+          label="A note for Daniella & Greg (optional)"
           value={state.message}
           onChange={(message) => onChange({ ...state, message })}
           maxLength={1000}

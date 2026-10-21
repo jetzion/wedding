@@ -60,7 +60,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 ## Open decisions
 
 - [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (needed for step 4)
-- [ ] Admin emails for Greg, Daniella, and the planner (placeholders in .env.example; needed for step 3)
+- [ ] Admin emails for Daniella, Greg, and the planner (placeholders in .env.example; needed for step 3)
 - [x] Plus-one rules: guest names their +1 (docs/SPEC.md section 16)
 - [x] RSVP unit: one person answers for the household (docs/SPEC.md section 16)
 - [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern)

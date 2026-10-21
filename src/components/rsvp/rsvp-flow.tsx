@@ -82,7 +82,7 @@ export function RsvpFlow() {
         <div className={`${cardClass} text-center`}>
           <h2 className="font-serif text-3xl">The RSVP deadline has passed</h2>
           <p className="mt-3 text-ink-muted">
-            To change your response, please reach out to Greg & Daniella directly.
+            To change your response, please reach out to Daniella & Greg directly.
           </p>
         </div>
       )}

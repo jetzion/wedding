@@ -98,8 +98,8 @@ export const proposal = {
 };
 
 export const loveNotes = [
-  { from: "Greg", about: "Daniella", text: "[What Greg loves most about Daniella.]" },
   { from: "Daniella", about: "Greg", text: "[What Daniella loves most about Greg.]" },
+  { from: "Greg", about: "Daniella", text: "[What Greg loves most about Daniella.]" },
 ];
 
 export const funQuestions = [

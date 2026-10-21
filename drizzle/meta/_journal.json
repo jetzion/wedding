@@ -36,6 +36,20 @@
       "when": 1792544207820,
       "tag": "0004_placeholder_invitations",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792547115379,
+      "tag": "0005_couple_names_order",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792547177700,
+      "tag": "0006_first_names_order",
+      "breakpoints": true
     }
   ]
 }

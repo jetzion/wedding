@@ -846,7 +846,7 @@ Decisions made by the couple that refine this specification. They take precedenc
 
 ### Administrators (decided 2026-10-20)
 
-- **Admins:** Greg, Daniella, and the wedding planner. Configured as an email allowlist in the `ADMIN_EMAILS` environment variable; real addresses not yet provided.
+- **Admins:** Daniella, Greg, and the wedding planner. Configured as an email allowlist in the `ADMIN_EMAILS` environment variable; real addresses not yet provided.
 
 ### RSVP lookup by guest name (decided 2026-10-20)
 
