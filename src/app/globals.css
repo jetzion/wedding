@@ -4,6 +4,7 @@
 :root {
   --sand: #fdfcf8;
   --sand-deep: #ede6d8;
+  --sand-edge: #d8cdb8;
   --shell: #ffffff;
   --shallows: #e3f4f3;
   --ink: #0f3b47;
@@ -17,6 +18,7 @@
 @theme inline {
   --color-sand: var(--sand);
   --color-sand-deep: var(--sand-deep);
+  --color-sand-edge: var(--sand-edge);
   --color-shell: var(--shell);
   --color-shallows: var(--shallows);
   --color-ink: var(--ink);

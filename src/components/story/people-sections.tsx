@@ -78,7 +78,7 @@ export function LoveNotes() {
     <StorySection id="love-notes" title="What We Love About Each Other">
       <div className="grid gap-8 sm:grid-cols-2">
         {loveNotes.map((note) => (
-          <figure key={note.from} className="rounded-3xl bg-shell p-8 text-center shadow-sm">
+          <figure key={note.from} className="rounded-3xl border border-sand-edge bg-shell p-8 text-center shadow-sm">
             <blockquote className="font-serif text-xl italic">&ldquo;{note.text}&rdquo;</blockquote>
             <figcaption className="mt-4 text-sm uppercase tracking-[0.15em] text-ink-muted">
               {note.from} on {note.about}

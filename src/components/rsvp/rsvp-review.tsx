@@ -13,7 +13,7 @@ function Summary({ invitation, state }: { invitation: Invitation; state: FormSta
       {state.guests.map((guest, i) => {
         const invited = invitation.guests[i];
         return (
-          <div key={guest.id} className="border-b border-sand-deep pb-4 last:border-0">
+          <div key={guest.id} className="border-b border-sand-edge pb-4 last:border-0">
             <h3 className="font-serif text-xl">{displayName(invited, guest)}</h3>
             <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
               {invitation.events

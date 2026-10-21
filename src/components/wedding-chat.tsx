@@ -67,9 +67,9 @@ export function WeddingChat({ starters, speakers }: { starters: string[]; speake
       role="dialog"
       aria-label="Wedding questions"
       onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
-      className="fixed inset-x-0 bottom-0 z-50 flex max-h-[80dvh] flex-col rounded-t-3xl border border-sand-deep bg-sand shadow-2xl sm:inset-x-auto sm:right-4 sm:bottom-4 sm:w-96 sm:rounded-3xl"
+      className="fixed inset-x-0 bottom-0 z-50 flex max-h-[80dvh] flex-col rounded-t-3xl border border-sand-edge bg-sand shadow-2xl sm:inset-x-auto sm:right-4 sm:bottom-4 sm:w-96 sm:rounded-3xl"
     >
-      <div className="flex items-center justify-between border-b border-sand-deep px-5 py-3">
+      <div className="flex items-center justify-between border-b border-sand-edge px-5 py-3">
         <h2 className="font-serif text-xl">Ask us anything</h2>
         <button
           type="button"
@@ -122,7 +122,7 @@ export function WeddingChat({ starters, speakers }: { starters: string[]; speake
         <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={onSubmit} className="flex gap-2 border-t border-sand-deep p-3">
+      <form onSubmit={onSubmit} className="flex gap-2 border-t border-sand-edge p-3">
         <label htmlFor="chat-input" className="sr-only">
           Your question
         </label>
@@ -134,7 +134,7 @@ export function WeddingChat({ starters, speakers }: { starters: string[]; speake
           maxLength={1000}
           autoFocus
           placeholder="Type your question"
-          className="min-w-0 flex-1 rounded-full border border-sand-deep bg-shell px-4 py-2 placeholder:text-ink-muted"
+          className="min-w-0 flex-1 rounded-full border border-sand-edge bg-shell px-4 py-2 placeholder:text-ink-muted"
         />
         <button
           type="submit"

@@ -40,7 +40,7 @@ export function SiteNav() {
       {open && (
         <ul
           id="mobile-menu"
-          className="absolute inset-x-0 top-full flex flex-col items-center gap-2 border-b border-sand-deep bg-sand py-6 text-lg lg:hidden"
+          className="absolute inset-x-0 top-full flex flex-col items-center gap-2 border-b border-sand-edge bg-sand py-6 text-lg lg:hidden"
         >
           {links}
         </ul>

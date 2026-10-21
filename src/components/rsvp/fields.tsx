@@ -1,13 +1,13 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 
-export const cardClass = "rounded-3xl bg-shell p-6 shadow-sm sm:p-8";
+export const cardClass = "rounded-3xl border border-sand-edge bg-shell p-6 shadow-sm sm:p-8";
 export const primaryButton =
   "rounded-full bg-sea px-8 py-3 text-shell transition-colors hover:bg-sea-dark disabled:opacity-50";
 export const secondaryButton =
   "rounded-full border border-sea px-8 py-3 text-sea transition-colors hover:bg-shallows";
 
 const inputClass =
-  "w-full rounded-2xl border border-sand-deep bg-sand/40 px-4 py-3 placeholder:text-ink-muted/70 focus:border-sea";
+  "w-full rounded-2xl border border-sand-edge bg-sand/40 px-4 py-3 placeholder:text-ink-muted/70 focus:border-sea";
 
 /** Labeled text input. */
 export function TextField({
@@ -84,7 +84,7 @@ export function ChoiceGroup<T extends string>({
               onChange={() => onChange(option.value)}
               className="peer sr-only"
             />
-            <span className="flex items-center gap-2 rounded-full border border-sand-deep px-5 py-2.5 transition-colors peer-checked:border-sea peer-checked:bg-sea peer-checked:text-shell peer-checked:*:bg-current peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-sea">
+            <span className="flex items-center gap-2 rounded-full border border-sand-edge px-5 py-2.5 transition-colors peer-checked:border-sea peer-checked:bg-sea peer-checked:text-shell peer-checked:*:bg-current peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-sea">
               <span aria-hidden className="size-2.5 rounded-full border border-current" />
               {option.label}
             </span>

@@ -11,7 +11,7 @@ export function HowWeMet() {
       </p>
       <div className="grid gap-8 sm:grid-cols-2">
         {howWeMet.perspectives.map((p) => (
-          <div key={p.name} className="rounded-3xl bg-shell p-6 shadow-sm">
+          <div key={p.name} className="rounded-3xl border border-sand-edge bg-shell p-6 shadow-sm">
             <h3 className="mb-2 font-serif text-xl">{p.name} says&hellip;</h3>
             <p className="text-ink-muted">{p.text}</p>
           </div>
@@ -69,7 +69,7 @@ export function FunQuestions() {
     <StorySection id="fun-qa" title="Fun Q&A" tinted>
       <dl className="mx-auto grid max-w-2xl gap-4">
         {funQuestions.map((item) => (
-          <div key={item.question} className="rounded-2xl bg-shell px-6 py-4 shadow-sm">
+          <div key={item.question} className="rounded-2xl border border-sand-edge bg-shell px-6 py-4 shadow-sm">
             <dt className="font-serif text-lg">{item.question}</dt>
             <dd className="text-ink-muted">{item.answer}</dd>
           </div>

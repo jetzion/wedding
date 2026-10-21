@@ -63,7 +63,7 @@ export function NameEntry({
       </form>
 
       {choices.length > 0 && (
-        <fieldset className="space-y-3 border-t border-sand-deep pt-5">
+        <fieldset className="space-y-3 border-t border-sand-edge pt-5">
           <legend className="sr-only">Choose your household</legend>
           <p role="status" className="text-ink-muted">
             We found more than one invitation. Which one is yours?

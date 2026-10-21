@@ -31,7 +31,7 @@ export function StorySection({
 export function StoryPhoto({ photo, sizes }: { photo: Photo; sizes: string }) {
   if (!photo) {
     return (
-      <div className="flex aspect-[3/2] w-full items-center justify-center border-2 border-dashed border-sand-deep bg-sand text-sm uppercase tracking-[0.2em] text-ink-muted">
+      <div className="flex aspect-[3/2] w-full items-center justify-center border-2 border-dashed border-sand-edge bg-sand text-sm uppercase tracking-[0.2em] text-ink-muted">
         Photo coming soon
       </div>
     );
@@ -49,5 +49,5 @@ export function StoryPhoto({ photo, sizes }: { photo: Photo; sizes: string }) {
 
 /** White rounded card used throughout Our Story. */
 export function StoryCard({ children }: { children: ReactNode }) {
-  return <div className="overflow-hidden rounded-3xl bg-shell shadow-sm">{children}</div>;
+  return <div className="overflow-hidden rounded-3xl border border-sand-edge bg-shell shadow-sm">{children}</div>;
 }
