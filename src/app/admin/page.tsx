@@ -1,31 +1,39 @@
 import { Suspense } from "react";
 import { signOut } from "@/app/admin/actions";
-import { cardClass, secondaryButton } from "@/components/rsvp/fields";
-import { requireAdmin } from "@/lib/admin";
+import { InvitationList, InvitationSummary } from "@/components/admin/invitation-list";
+import { secondaryButton } from "@/components/rsvp/fields";
+import { listInvitations } from "@/lib/admin/invitations";
+import { requireAdmin } from "@/lib/admin/session";
+import { getWeddingSettings } from "@/lib/settings";
 
 export default function Page() {
   return (
-    <div className={`${cardClass} mx-auto max-w-md space-y-5 text-center`}>
-      <h1 className="font-serif text-4xl">Admin</h1>
-      <Suspense fallback={<p className="text-ink-muted">Checking your sign-in…</p>}>
-        <SignedIn />
+    <div className="mx-auto w-full max-w-3xl space-y-8">
+      <h1 className="text-center font-serif text-4xl">Invitations</h1>
+      <Suspense fallback={<p className="text-center text-ink-muted">Loading invitations…</p>}>
+        <Dashboard />
       </Suspense>
     </div>
   );
 }
 
 /** Admin-only content. Reads the session per request and redirects anyone who is not an admin. */
-async function SignedIn() {
+async function Dashboard() {
   const session = await requireAdmin();
+  const [invitations, settings] = await Promise.all([listInvitations(), getWeddingSettings()]);
 
   return (
     <>
-      <p className="text-ink-muted">Signed in as {session.user.email}</p>
-      <form action={signOut}>
-        <button type="submit" className={secondaryButton}>
-          Sign out
-        </button>
-      </form>
+      <InvitationSummary invitations={invitations} />
+      <InvitationList invitations={invitations} timezone={settings.timezone} />
+      <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-ink-muted">
+        <span>Signed in as {session.user.email}</span>
+        <form action={signOut}>
+          <button type="submit" className={secondaryButton}>
+            Sign out
+          </button>
+        </form>
+      </div>
     </>
   );
 }

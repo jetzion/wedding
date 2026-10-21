@@ -40,7 +40,8 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Protect everything under `/admin`: `requireAdmin()` in every admin page and action
 - [x] Production: `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAILS` set in Vercel
 - [x] Production: `ADMIN_SETUP_CODE` set; first admin account (jack@etzion.us) created. The setup code stays for adding admins later
-- [ ] Invitation list, create, edit, delete (next)
+- [x] Invitation list at `/admin`: totals, each person with their status (attending, declined, awaiting response), dietary and accessibility notes, contact email, confirmation code, note
+- [ ] Create, edit, delete invitations (next)
 
 ## Phase 2 — Public website
 
