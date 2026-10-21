@@ -18,6 +18,8 @@ npm test           # unit tests (Vitest)
 npm run test:e2e   # end-to-end tests (Playwright); first run: npx playwright install chromium
 ```
 
+Pushes to `main` deploy to production through Vercel's GitHub integration (currently not triggering; see `PLAN.md`).
+
 ## Admin access
 
 Admins sign in at `/admin/sign-in`. `/admin` lists every invitation with each person's RSVP status, with search, a status filter, and CSV export. From there admins add, edit, and delete invitations and correct RSVP answers. To create an account, set `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `ADMIN_EMAILS`, and `ADMIN_SETUP_CODE`, open `/admin/setup`, and enter the setup code, an email on `ADMIN_EMAILS`, and a password of at least 12 characters. `ADMIN_SETUP_CODE` stays set so more admins can be added later: add their email to `ADMIN_EMAILS`, redeploy, and have them sign up soon. Keep the code private.

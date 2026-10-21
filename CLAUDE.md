@@ -39,6 +39,7 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 - `src/app/admin/invitations/` — new, edit, delete, and correct-RSVP pages; `src/app/admin/export/` — CSV export route; `src/components/admin/` — admin forms and the invitation list
 - `src/lib/rsvp/` — guest RSVP lookup, validation, and saving
 - `e2e/` — Playwright tests
+- `.agents/skills/` — Neon agent skills (linked from `.claude/skills/`, pinned in `skills-lock.json`)
 - Routes with dynamic params (such as `/admin/invitations/[id]/...`) are only known at request time: read `params` inside `<Suspense>`, and keep anything calling `usePathname()` (the site nav) inside `<Suspense>`, or the build fails.
 - Databases: Neon `wedding-db` for development, `neon-bole-zebra` for preview and production. Production secrets cannot be pulled locally; production migrations run in the Vercel build.
 - `docs/SPEC.md` — product specification
@@ -65,7 +66,7 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 5. Add or update tests when changing important business logic (RSVP, eligibility, tokens, authorization).
 6. Run tests, lint, type checking, and build after changes. Fix regressions before declaring work complete.
 7. Update docs and `.env.example` when configuration changes.
-8. Never claim deployment, email delivery, authentication, or database operations work unless verified.
+8. Never claim deployment, email delivery, authentication, or database operations work unless verified. After a push, confirm a deployment exists for that commit (`vercel ls -m githubCommitSha=<full sha>`) and that the live site serves the change.
 
 ## Completion summary
 
