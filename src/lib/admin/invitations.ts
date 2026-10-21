@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { events, guestEvents, guests, households, rsvpResponses } from "@/db/schema";
 import { requireAdmin } from "@/lib/admin/session";
 import { type GuestStatus, guestStatus } from "@/lib/admin/status";
+import type { InvitationInput } from "@/lib/admin/invitation-input";
 import type { RsvpStatus } from "@/lib/rsvp/types";
 
 export type AdminGuest = {
@@ -66,4 +67,23 @@ export async function listInvitations(): Promise<AdminInvitation[]> {
         };
       }),
   }));
+}
+
+/** Create a household and its guests, each invited to every event. Admins only. */
+export async function createInvitation(input: InvitationInput) {
+  await requireAdmin();
+
+  const eventRows = await db.select({ id: events.id }).from(events);
+  const householdId = crypto.randomUUID();
+  const people = [
+    ...input.guests.map((g) => ({ ...g, isPlusOne: false })),
+    ...(input.plusOne ? [{ firstName: null, lastName: null, isPlusOne: true }] : []),
+  ];
+  const guestRows = people.map((p, i) => ({ id: crypto.randomUUID(), householdId, sortOrder: i + 1, ...p }));
+
+  await db.batch([
+    db.insert(households).values({ id: householdId, name: input.name, contactEmail: input.contactEmail || null }),
+    db.insert(guests).values(guestRows),
+    db.insert(guestEvents).values(guestRows.flatMap((g) => eventRows.map((e) => ({ guestId: g.id, eventId: e.id })))),
+  ]);
 }

@@ -1,7 +1,8 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { signOut } from "@/app/admin/actions";
 import { InvitationList, InvitationSummary } from "@/components/admin/invitation-list";
-import { secondaryButton } from "@/components/rsvp/fields";
+import { primaryButton, secondaryButton } from "@/components/rsvp/fields";
 import { listInvitations } from "@/lib/admin/invitations";
 import { requireAdmin } from "@/lib/admin/session";
 import { getWeddingSettings } from "@/lib/settings";
@@ -25,6 +26,11 @@ async function Dashboard() {
   return (
     <>
       <InvitationSummary invitations={invitations} />
+      <div className="text-center">
+        <Link href="/admin/invitations/new" className={primaryButton}>
+          Add invitation
+        </Link>
+      </div>
       <InvitationList invitations={invitations} timezone={settings.timezone} />
       <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-ink-muted">
         <span>Signed in as {session.user.email}</span>

@@ -5,6 +5,9 @@ import { APIError } from "better-auth/api";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isAdminEmail } from "@/lib/admin-emails";
+import { parseInvitationForm } from "@/lib/admin/invitation-input";
+import { createInvitation } from "@/lib/admin/invitations";
+import { requireAdmin } from "@/lib/admin/session";
 import { auth } from "@/lib/auth";
 import { isRateLimited } from "@/lib/rate-limit";
 
@@ -65,4 +68,13 @@ export async function setUp(_: FormResult, form: FormData): Promise<FormResult> 
 export async function signOut() {
   await auth.api.signOut({ headers: await headers() });
   redirect("/admin/sign-in");
+}
+
+/** Create an invitation from the admin form. */
+export async function addInvitation(_: FormResult, form: FormData): Promise<FormResult> {
+  await requireAdmin();
+  const parsed = parseInvitationForm(form);
+  if (!parsed.ok) return { error: parsed.error };
+  await createInvitation(parsed.data);
+  redirect("/admin");
 }
