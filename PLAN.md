@@ -6,14 +6,13 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 
 In order:
 
-1. Admin: create (done), edit, and delete (done) invitations (people, plus-one slot, invitation name, contact email), with confirmation before deleting.
-2. Admin: correct a guest's RSVP answer.
-3. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin.
-4. Admin: search and filter the invitation list; CSV export of guests and RSVPs.
-5. Real wedding date, venue, and RSVP deadline (open decisions below), then the homepage details and countdown.
-6. Add Daniella, Greg, and the planner as admins once their emails are known.
-7. Choose an email provider; send RSVP confirmation emails.
-8. End-to-end tests with Playwright (RSVP flow, admin sign-in, admin access denied when signed out).
+1. Admin: correct a guest's RSVP answer.
+2. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin.
+3. Admin: search and filter the invitation list; CSV export of guests and RSVPs.
+4. Real wedding date, venue, and RSVP deadline (open decisions below), then the homepage details and countdown.
+5. Add Daniella, Greg, and the planner as admins once their emails are known.
+6. Choose an email provider; send RSVP confirmation emails.
+7. End-to-end tests with Playwright (RSVP flow, admin sign-in, admin access denied when signed out).
 
 ## Done
 
@@ -60,8 +59,8 @@ In order:
 - [x] Invitation list at `/admin`: totals, each person with their status (attending, declined, awaiting response), dietary and accessibility notes, contact email, confirmation code, note
 - [x] Create invitations at `/admin/invitations/new`: name, optional contact email, up to 6 people (first and last name required), optional plus-one; every guest is invited to every event
 - [x] Delete invitations: "Delete" on each card opens a confirmation page; guests, event links, and RSVP answers go with it (cascade)
-- [ ] Edit invitations (next)
-- [ ] Correct a guest's RSVP answer
+- [x] Edit invitations: name, email, rename people (keeps their RSVP answer), add people, remove people (explicit checkbox), plus-one slot on/off; a stale form changes nothing
+- [ ] Correct a guest's RSVP answer, including the plus-one's name (next)
 - [ ] Search and filter; CSV export
 - [ ] Audit records for deletions and RSVP corrections (docs/SPEC.md section 6)
 - [ ] Optional: hide the "Chat with us" button on admin pages
@@ -84,7 +83,7 @@ In order:
 - [ ] Confirmation emails (needs email provider)
 - [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
 - [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`; remove before real invitations go out
-- [ ] Creating real invitations (needs create/edit in admin; dev uses `npm run invite:test`)
+- [ ] Enter the real invitations in admin (create and edit are ready)
 - [ ] End-to-end tests with Playwright
 
 ## Open decisions

@@ -94,7 +94,10 @@ export function InvitationList({ invitations, timezone }: { invitations: AdminIn
             </dl>
           )}
 
-          <p className="text-right text-sm">
+          <p className="flex justify-end gap-4 text-sm">
+            <Link href={`/admin/invitations/${invitation.id}/edit`} className="text-sea underline">
+              Edit
+            </Link>
             <Link href={`/admin/invitations/${invitation.id}/delete`} className="text-coral underline">
               Delete
             </Link>

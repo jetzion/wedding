@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isAdminEmail } from "@/lib/admin-emails";
 import { parseInvitationForm } from "@/lib/admin/invitation-input";
-import { createInvitation, deleteInvitation } from "@/lib/admin/invitations";
+import { createInvitation, deleteInvitation, updateInvitation } from "@/lib/admin/invitations";
 import { requireAdmin } from "@/lib/admin/session";
 import { auth } from "@/lib/auth";
 import { isRateLimited } from "@/lib/rate-limit";
@@ -85,5 +85,16 @@ export async function removeInvitation(form: FormData) {
   await requireAdmin();
   const id = z.uuid().parse(form.get("id"));
   await deleteInvitation(id);
+  redirect("/admin");
+}
+
+/** Save changes from the edit invitation form. */
+export async function editInvitation(_: FormResult, form: FormData): Promise<FormResult> {
+  await requireAdmin();
+  const id = z.uuid().parse(form.get("id"));
+  const parsed = parseInvitationForm(form);
+  if (!parsed.ok) return { error: parsed.error };
+  const error = await updateInvitation(id, parsed.data);
+  if (error) return { error };
   redirect("/admin");
 }

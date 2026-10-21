@@ -1,5 +1,5 @@
 import "server-only";
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { events, guestEvents, guests, households, rsvpResponses } from "@/db/schema";
 import { requireAdmin } from "@/lib/admin/session";
@@ -10,6 +10,8 @@ import type { RsvpStatus } from "@/lib/rsvp/types";
 export type AdminGuest = {
   id: string;
   name: string;
+  firstName: string | null;
+  lastName: string | null;
   isPlusOne: boolean;
   status: GuestStatus;
   dietaryRestrictions: string | null;
@@ -60,6 +62,8 @@ export async function listInvitations(): Promise<AdminInvitation[]> {
         return {
           id: g.id,
           name: guestName(g),
+          firstName: g.firstName,
+          lastName: g.lastName,
           isPlusOne: g.isPlusOne,
           status: guestStatus(invited, responses),
           dietaryRestrictions: g.dietaryRestrictions,
@@ -69,22 +73,86 @@ export async function listInvitations(): Promise<AdminInvitation[]> {
   }));
 }
 
+type Person = { firstName: string | null; lastName: string | null; isPlusOne: boolean };
+
+/** Insert queries for new guests, each invited to every event. Empty when there are no people. */
+function insertGuests(householdId: string, people: Person[], firstSortOrder: number, eventIds: string[]) {
+  if (!people.length) return [];
+  const rows = people.map((p, i) => ({
+    id: crypto.randomUUID(),
+    householdId,
+    sortOrder: firstSortOrder + i,
+    firstName: p.firstName,
+    lastName: p.lastName,
+    isPlusOne: p.isPlusOne,
+  }));
+  const links = rows.flatMap((g) => eventIds.map((eventId) => ({ guestId: g.id, eventId })));
+  return [db.insert(guests).values(rows), ...(links.length ? [db.insert(guestEvents).values(links)] : [])];
+}
+
+const named = (g: { firstName: string; lastName: string }): Person => ({ ...g, isPlusOne: false });
+const PLUS_ONE: Person = { firstName: null, lastName: null, isPlusOne: true };
+
+async function eventIds() {
+  return (await db.select({ id: events.id }).from(events)).map((e) => e.id);
+}
+
 /** Create a household and its guests, each invited to every event. Admins only. */
 export async function createInvitation(input: InvitationInput) {
   await requireAdmin();
-
-  const eventRows = await db.select({ id: events.id }).from(events);
   const householdId = crypto.randomUUID();
-  const people = [
-    ...input.guests.map((g) => ({ ...g, isPlusOne: false })),
-    ...(input.plusOne ? [{ firstName: null, lastName: null, isPlusOne: true }] : []),
-  ];
-  const guestRows = people.map((p, i) => ({ id: crypto.randomUUID(), householdId, sortOrder: i + 1, ...p }));
+  const people = [...input.guests.map(named), ...(input.plusOne ? [PLUS_ONE] : [])];
 
   await db.batch([
     db.insert(households).values({ id: householdId, name: input.name, contactEmail: input.contactEmail || null }),
-    db.insert(guests).values(guestRows),
-    db.insert(guestEvents).values(guestRows.flatMap((g) => eventRows.map((e) => ({ guestId: g.id, eventId: e.id })))),
+    ...insertGuests(householdId, people, 1, await eventIds()),
+  ]);
+}
+
+const STALE = "This invitation changed since you opened it. Reload the page and try again.";
+
+/**
+ * Update a household's name, email, and people. Existing guests keep their id
+ * and RSVP answers; removed guests are deleted with their answers. The form
+ * must account for every named guest in this household, so a stale or
+ * tampered form changes nothing. Returns an error message, or undefined on
+ * success. Admins only.
+ */
+export async function updateInvitation(id: string, input: InvitationInput) {
+  await requireAdmin();
+  const [household] = await db.select({ id: households.id }).from(households).where(eq(households.id, id));
+  if (!household) return STALE;
+  const existing = await db.select().from(guests).where(eq(guests.householdId, id));
+  const namedIds = existing.filter((g) => !g.isPlusOne).map((g) => g.id);
+  const plusOne = existing.find((g) => g.isPlusOne);
+
+  const kept = input.guests.filter((g) => g.id);
+  const added = input.guests.filter((g) => !g.id);
+  const accounted = [...kept.map((g) => g.id!), ...input.removeIds];
+  if (accounted.sort().join() !== [...namedIds].sort().join()) return STALE;
+
+  const plusOneSortOrder = input.guests.length + 1;
+  const allEvents = await eventIds();
+  const inHousehold = (guestId: string) => and(eq(guests.id, guestId), eq(guests.householdId, id));
+
+  await db.batch([
+    db
+      .update(households)
+      .set({ name: input.name, contactEmail: input.contactEmail || null })
+      .where(eq(households.id, id)),
+    ...kept.map((g, i) =>
+      db
+        .update(guests)
+        .set({ firstName: g.firstName, lastName: g.lastName, sortOrder: i + 1 })
+        .where(inHousehold(g.id!)),
+    ),
+    ...input.removeIds.map((guestId) => db.delete(guests).where(inHousehold(guestId))),
+    ...insertGuests(id, added.map(named), kept.length + 1, allEvents),
+    ...(input.plusOne && !plusOne ? insertGuests(id, [PLUS_ONE], plusOneSortOrder, allEvents) : []),
+    ...(input.plusOne && plusOne
+      ? [db.update(guests).set({ sortOrder: plusOneSortOrder }).where(inHousehold(plusOne.id))]
+      : []),
+    ...(!input.plusOne && plusOne ? [db.delete(guests).where(inHousehold(plusOne.id))] : []),
   ]);
 }
 

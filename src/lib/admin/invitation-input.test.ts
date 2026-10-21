@@ -29,6 +29,7 @@ describe("parseInvitationForm", () => {
           { firstName: "Alex", lastName: "Tester" },
           { firstName: "Sam", lastName: "Tester" },
         ],
+        removeIds: [],
         plusOne: true,
       },
     });
@@ -51,5 +52,43 @@ describe("parseInvitationForm", () => {
       ok: false,
       error: "Enter a valid email or leave it blank.",
     });
+  });
+
+  it("keeps existing guest ids and reads removals", () => {
+    const keep = "11111111-1111-4111-8111-111111111111";
+    const drop = "22222222-2222-4222-8222-222222222222";
+    const result = parseInvitationForm(
+      form({
+        name: "X",
+        guestId: [keep, drop, ""],
+        firstName: ["Alex", "", "Robin"],
+        lastName: ["Tester", "", "Tester"],
+        remove: drop,
+      }),
+    );
+    expect(result).toMatchObject({
+      ok: true,
+      data: {
+        guests: [
+          { id: keep, firstName: "Alex", lastName: "Tester" },
+          { firstName: "Robin", lastName: "Tester" },
+        ],
+        removeIds: [drop],
+      },
+    });
+  });
+
+  it("rejects blanking an existing guest instead of removing them", () => {
+    const id = "11111111-1111-4111-8111-111111111111";
+    const result = parseInvitationForm(form({ name: "X", guestId: [id], firstName: [""], lastName: [""] }));
+    expect(result).toEqual({ ok: false, error: "Enter both a first and last name for each person." });
+  });
+
+  it("requires someone to remain after removals", () => {
+    const id = "11111111-1111-4111-8111-111111111111";
+    const result = parseInvitationForm(
+      form({ name: "X", guestId: [id], firstName: ["Alex"], lastName: ["Tester"], remove: id }),
+    );
+    expect(result).toEqual({ ok: false, error: "Add at least one person." });
   });
 });
