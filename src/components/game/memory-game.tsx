@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { GalleryPhoto } from "@/content/engagement";
 
 const PAIRS = 8;
-const MAX_MISTAKES = 5;
+const MAX_MISTAKES = 10;
 const PREVIEW_MS = 5000;
 const FLIP_BACK_MS = 900;
 
@@ -26,7 +26,7 @@ function newDeck(photos: GalleryPhoto[]): Card[] {
   return shuffle([...picked, ...picked]).map((photo, id) => ({ id, photo }));
 }
 
-/** 4x4 photo matching game. Five wrong guesses and you are "not invited". */
+/** 4x4 photo matching game. Ten wrong guesses and you are "not invited". */
 export function MemoryGame({ photos }: { photos: GalleryPhoto[] }) {
   const [deck, setDeck] = useState<Card[]>([]);
   const [status, setStatus] = useState<Status>("idle");
