@@ -29,7 +29,7 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 - [x] Add Drizzle and migrations (migrations run on every build)
 - [x] Wedding settings table: names, date, timezone, RSVP deadline
 - [ ] Wedding settings: venue and welcome message (add when needed)
-- [x] Events table: ceremony and reception (unpublished placeholders)
+- [x] Events table: one combined "Ceremony & Reception" event (unpublished placeholder; combined in migration `0007`)
 - [x] Initial settings and events inserted by migration `0001`
 - [x] Pages read settings from the database (cached, refresh hourly)
 

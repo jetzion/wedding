@@ -830,7 +830,7 @@ Decisions made by the couple that refine this specification. They take precedenc
 
 ### RSVP (decided 2026-10-20)
 
-- **Events requiring RSVP:** ceremony and reception only.
+- **Events requiring RSVP:** one combined "Ceremony & Reception" event. Guests answer once for both.
 - **Meals:** no meal selection. Dietary restrictions and accessibility requests are still collected.
 - **Plus-ones:** guests with a plus-one allowance enter their plus-one's name. Guests without an allowance cannot add anyone.
 - **Children:** adults only. Households contain adult guests only.

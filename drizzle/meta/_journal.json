@@ -50,6 +50,13 @@
       "when": 1792547177700,
       "tag": "0006_first_names_order",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792548482712,
+      "tag": "0007_combine_ceremony_reception",
+      "breakpoints": true
     }
   ]
 }

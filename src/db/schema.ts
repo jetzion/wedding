@@ -36,7 +36,7 @@ export const weddingSettings = pgTable(
   (t) => [check("wedding_settings_single_row", sql`${t.id} = 1`)],
 );
 
-/** Wedding-related events guests can attend, such as the ceremony and reception. */
+/** Wedding-related events guests can attend, such as the combined ceremony and reception. */
 export const events = pgTable("events", {
   id: uuid("id").primaryKey().defaultRandom(),
   slug: text("slug").notNull().unique(),
