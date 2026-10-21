@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { setUp } from "@/app/admin/actions";
 import { AdminForm } from "@/components/admin/admin-form";
-import { NewPasswordFields } from "@/components/admin/new-password-fields";
+import { PasswordFields } from "@/components/admin/password-fields";
 import { TextField } from "@/components/rsvp/fields";
 
 /** One-time admin account creation. Hidden unless ADMIN_SETUP_CODE is set. */
@@ -14,7 +14,7 @@ export default function Page() {
       <AdminForm action={setUp} submitLabel="Create account">
         <TextField label="Setup code" name="code" autoComplete="off" required />
         <TextField label="Email" name="email" type="email" autoComplete="username" required />
-        <NewPasswordFields />
+        <PasswordFields isNew />
       </AdminForm>
     </div>
   );

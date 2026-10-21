@@ -1,5 +1,6 @@
 import { signIn } from "@/app/admin/actions";
 import { AdminForm } from "@/components/admin/admin-form";
+import { PasswordFields } from "@/components/admin/password-fields";
 import { TextField } from "@/components/rsvp/fields";
 
 export default function Page() {
@@ -8,7 +9,7 @@ export default function Page() {
       <h1 className="text-center font-serif text-4xl">Admin sign-in</h1>
       <AdminForm action={signIn} submitLabel="Sign in">
         <TextField label="Email" name="email" type="email" autoComplete="username" required />
-        <TextField label="Password" name="password" type="password" autoComplete="current-password" required />
+        <PasswordFields />
       </AdminForm>
     </div>
   );
