@@ -56,10 +56,12 @@ export function Proposal() {
   );
 }
 
+/** The engagement gallery, without the photo already shown in The Proposal. */
 export function EngagementPhotos() {
+  const photos = engagementPhotos.filter((photo) => photo.src !== proposal.photo?.src);
   return (
     <StorySection id="engagement" title="Engagement Photos">
-      <PhotoGallery photos={engagementPhotos} />
+      <PhotoGallery photos={photos} />
     </StorySection>
   );
 }

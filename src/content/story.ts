@@ -1,13 +1,15 @@
 import type { StaticImageData } from "next/image";
 import daniellaGrad from "@/assets/story-daniella-grad.jpg";
 import gregGrad from "@/assets/story-greg-grad.jpg";
+import { engagementPhotos } from "@/content/engagement";
 
 /**
  * Our Story page content. Text in [brackets] is placeholder until the couple
  * provides it. A null photo shows a "Photo coming soon" box.
  */
 
-export type Photo = { src: StaticImageData; alt: string } | null;
+/** position is a CSS object-position, for photos whose subject is off center. */
+export type Photo = { src: StaticImageData; alt: string; position?: string } | null;
 
 export const couple = [
   {
@@ -91,7 +93,7 @@ export const timeline = [
 ];
 
 export const proposal = {
-  photo: null as Photo,
+  photo: { ...engagementPhotos[3], position: "50% 28%" } as Photo,
   date: "[Date]",
   place: "[Place]",
   text: "[How the proposal happened: the plan, the surprise, the answer.]",

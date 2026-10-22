@@ -53,6 +53,7 @@ export function StoryPhoto({ photo, sizes }: { photo: Photo; sizes: string }) {
       alt={photo.alt}
       placeholder="blur"
       sizes={sizes}
+      style={{ objectPosition: photo.position }}
       className="aspect-[3/2] w-full object-cover"
     />
   );
