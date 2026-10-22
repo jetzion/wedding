@@ -4,7 +4,21 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { GalleryPhoto } from "@/content/engagement";
 
-/** Masonry photo grid; tapping a photo opens it full-size with next/previous. */
+const isWide = (photo: GalleryPhoto) => photo.src.width > photo.src.height;
+
+/**
+ * Grid tile for photo i. Tall photos take one cell; wide photos take two
+ * (alternating sides from sm up) and fill out rows with a tall photo; a wide
+ * last photo closes the gallery at full width.
+ */
+function tileClass(photos: GalleryPhoto[], i: number) {
+  if (!isWide(photos[i])) return "aspect-[2/3]";
+  if (i === photos.length - 1) return "col-span-2 aspect-[3/2] sm:col-span-3 sm:aspect-[16/9]";
+  const wideBefore = photos.slice(0, i).filter(isWide).length;
+  return `col-span-2 aspect-[3/2] sm:aspect-auto ${wideBefore % 2 ? "sm:col-start-2" : ""}`;
+}
+
+/** Even photo grid; tapping a photo opens it full-size with next/previous. */
 export function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
   const [index, setIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -21,20 +35,21 @@ export function PhotoGallery({ photos }: { photos: GalleryPhoto[] }) {
 
   return (
     <>
-      <ul className="columns-2 gap-3 sm:columns-3 sm:gap-4">
+      <ul className="grid grid-flow-dense grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
         {photos.map((photo, i) => (
-          <li key={photo.src.src} className="mb-3 break-inside-avoid sm:mb-4">
+          <li key={photo.src.src} className={tileClass(photos, i)}>
             <button
               type="button"
               onClick={() => setIndex(i)}
-              className="block w-full overflow-hidden rounded-2xl"
+              className="relative block size-full overflow-hidden rounded-2xl"
             >
               <Image
                 src={photo.src}
                 alt={photo.alt}
                 placeholder="blur"
-                sizes="(min-width: 1024px) 320px, (min-width: 640px) 33vw, 50vw"
-                className="w-full transition-transform duration-300 hover:scale-105"
+                fill
+                sizes={isWide(photo) ? "(min-width: 1024px) 660px, (min-width: 640px) 66vw, 100vw" : "(min-width: 1024px) 320px, (min-width: 640px) 33vw, 50vw"}
+                className="object-cover transition-transform duration-300 hover:scale-105"
               />
             </button>
           </li>
