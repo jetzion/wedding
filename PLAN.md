@@ -4,23 +4,20 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 
 ## Next steps
 
-Status 2026-10-21: the public site, RSVP by name, the admin dashboard, and personal invitation pages are live at https://greg-daniella.vercel.app. Wedding Details, Travel, and FAQ are still "Coming soon" pages, and the date, venue, and deadline are placeholders.
+Status 2026-10-21: the public site, RSVP by name, personal invitation pages, and the admin dashboard (with an activity log) are live at https://greg-daniella.vercel.app. Wedding Details, Travel, and FAQ are still "Coming soon" pages, and the date, venue, and deadline are placeholders.
 
 Ready to build now:
 
-1. ~~End-to-end test of the RSVP flow~~ Done: `e2e/rsvp-flow.spec.ts`.
-2. ~~Audit records~~ Done: `audit_log` table (migration `0012`) and the Activity page at `/admin/activity`.
-3. ~~Hide the "Chat with us" button on admin pages~~ Done.
-4. End-to-end test of admin sign-in and change password. Approach used for manual checks so far: a production build on port 3100 with temporary `ADMIN_EMAILS=admin-test@example.com` and a throwaway `ADMIN_SETUP_CODE`, deleting the test account afterwards.
+1. End-to-end test of admin sign-in and change password. Approach used for manual checks so far: a production build on port 3100 with temporary `ADMIN_EMAILS=admin-test@example.com` and a throwaway `ADMIN_SETUP_CODE`, deleting the test account afterwards.
 
 Waiting on the couple:
 
-5. Real wedding date, start time, venue, city, dress code, and RSVP deadline, for the home page and the invitation page placeholders.
-6. Content for Our Story (about 50 `[bracketed]` placeholders in `src/content/story.ts`), Wedding Details, Travel, and FAQ.
-7. Confirm the source and license of the banner photos for the README credits: RSVP (Maldives seaside resort), and the Wedding Details, Travel, and FAQ photos added 2026-10-21. The Our Story banner is the couple's own photo.
-8. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin, then share each household's invitation link (on hold: keeping the placeholders for testing for now).
-9. Admins: `ADMIN_EMAILS` in production is `jack@etzion.us,daniella@etzion.us` (set and redeployed 2026-10-21); Daniella still needs to sign up at `/admin/setup` (not yet confirmed). Add Greg and the planner once their emails are known.
-10. Choose an email provider; send RSVP confirmation emails (and, if wanted, email each household its invitation link).
+2. Real wedding date, start time, venue, city, dress code, and RSVP deadline, for the home page and the invitation page placeholders.
+3. Content for Our Story (about 50 `[bracketed]` placeholders in `src/content/story.ts`), Wedding Details, Travel, and FAQ.
+4. Confirm the source and license of the banner photos for the README credits: RSVP (Maldives seaside resort), and the Wedding Details, Travel, and FAQ photos added 2026-10-21. The Our Story banner is the couple's own photo.
+5. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin, then share each household's invitation link (on hold: keeping the placeholders for testing for now). Check the spelling "Mark Grafinkel": guests must type their name exactly, and couples sharing a last name are greeted "Susan and Mark Garfinkel" only if the spellings match.
+6. Admins: `ADMIN_EMAILS` in production is `jack@etzion.us,daniella@etzion.us` (set and redeployed 2026-10-21); Daniella still needs to sign up at `/admin/setup` (not yet confirmed). Add Greg and the planner once their emails are known.
+7. Choose an email provider; send RSVP confirmation emails (and, if wanted, email each household its invitation link).
 
 ## Invitation page (done, live since `24435b4`)
 
@@ -109,6 +106,10 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] Memory game: 10 wrong guesses allowed (`MAX_MISTAKES`)
 - [x] Vercel auto-deploys from GitHub work again (every push since `045e1ec`, 2026-10-21)
 - [x] Personal invitation pages at `/invitation/[link name]` with admin copy and replace (`24435b4`; see "Invitation page" below)
+- [x] Invitation greetings by household size: one or two guests by name, couples sharing a last name as "John and Jane Smith", three or more as "[invitation name] Family" (`4c80701`)
+- [x] Activity log of admin changes and exports at `/admin/activity` (`4c80701`)
+- [x] RSVP-flow end-to-end test (`b82cff1`)
+- [x] "Chat with us" hidden on admin pages (`ef14e77`)
 
 ## Phase 1 — Foundation
 
@@ -156,15 +157,15 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 ## Phase 2 — Public website
 
 ### 4. Homepage
-- [ ] Names, date, venue from settings (next step 5)
+- [ ] Names, date, venue from settings (next step 2)
 - [x] Countdown under "Our Wedding": days, hours, minutes, seconds to the wedding date in settings (placeholder date until decided)
 - [x] Hero section and RSVP button (four beach photos cross-fade every 6 seconds; reduced motion keeps the first)
 
 ### 5. Other pages
-- [x] Our Story: sections, timeline, engagement photos, and Q&A built; text is `[placeholder]` until the couple provides it (next step 6)
-- [ ] Wedding Details, Travel, FAQ: "Coming soon" pages with banners; content needed (next step 6)
+- [x] Our Story: sections, timeline, engagement photos, and Q&A built; text is `[placeholder]` until the couple provides it (next step 3)
+- [ ] Wedding Details, Travel, FAQ: "Coming soon" pages with banners; content needed (next step 3)
 - [x] Game: engagement-photo memory game (10 wrong guesses allowed)
-- [x] Personal invitation page at `/invitation/[link name]`; date, venue, and deadline are placeholders (next step 5)
+- [x] Personal invitation page at `/invitation/[link name]`; date, venue, and deadline are placeholders (next step 2)
 
 ## Phase 3 — RSVP
 
@@ -174,26 +175,26 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] RSVP form: per-guest per-event answers, dietary, accessibility, email, note
 - [x] Review step, confirmation number, editable until the deadline
 - [x] Unit tests for codes and validation (Vitest)
-- [ ] Confirmation emails (needs email provider; next step 10)
+- [ ] Confirmation emails (needs email provider; next step 7)
 - [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
 - [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`; remove before real invitations go out
-- [ ] Enter the real invitations in admin (create and edit are ready; next step 8)
+- [ ] Enter the real invitations in admin (create and edit are ready; next step 5)
 - [x] Playwright set up (`npm run test:e2e`): public pages load; home page countdown ticks; every admin page (including Activity and Change password) and the CSV export deny signed-out visitors; invitation page (fictional household, created and deleted by the test)
 - [x] End-to-end: RSVP flow (`e2e/rsvp-flow.spec.ts`, fictional "The Rsvptest Household" created and deleted by the test): unknown and plus-one names get the generic message; missing answers are caught and nothing is saved; a full RSVP (attending with a dietary note, declining, named plus-one) is saved with a `GD-` code; coming back shows the code, prefills the answers, and keeps the code after a change
-- [ ] End-to-end: admin sign-in and change password (next step 4)
+- [ ] End-to-end: admin sign-in and change password (next step 1)
 
 ## Open decisions
 
-- [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (next step 5)
+- [ ] Wedding date and start time (placeholder: 2027-08-14 5:00 PM Eastern) and venue (next step 2)
 - [x] Countdown stays visible with the placeholder date until the real date is set (docs/SPEC.md section 16)
 - [x] First admin: jack@etzion.us (production `ADMIN_EMAILS`)
 - [x] Daniella added as an admin: daniella@etzion.us (production `ADMIN_EMAILS`, 2026-10-21)
-- [ ] Admin emails for Greg and the planner (add to `ADMIN_EMAILS`, redeploy, sign up on `/admin/setup`; next step 9)
+- [ ] Admin emails for Greg and the planner (add to `ADMIN_EMAILS`, redeploy, sign up on `/admin/setup`; next step 6)
 - [x] Plus-one rules: guest names their +1 (docs/SPEC.md section 16)
 - [x] RSVP unit: one person answers for the household (docs/SPEC.md section 16)
-- [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern; next step 5)
+- [ ] RSVP deadline date (placeholder: 2027-06-01, Eastern; next step 2)
 - [x] Venue timezone: Eastern
 - [x] Name order: Daniella first (docs/SPEC.md section 16)
 - [x] RSVP events: one combined "Ceremony & Reception" (docs/SPEC.md section 16)
-- [ ] Email provider for confirmation emails (next step 10)
-- [ ] Spelling of "Mark Grafinkel" in the Garfinkel Family placeholder (guests must type their name exactly)
+- [ ] Email provider for confirmation emails (next step 7)
+- [ ] Spelling of "Mark Grafinkel" in the Garfinkel Family placeholder (guests must type their name exactly; next step 5)

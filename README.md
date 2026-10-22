@@ -17,7 +17,7 @@ npm run lint
 npm run typecheck
 npm run build
 npm test           # unit tests (Vitest)
-npm run test:e2e   # end-to-end tests (Playwright); first run: npx playwright install chromium
+npm run test:e2e   # end-to-end tests (Playwright) on the development database; they create and delete fictional test data. First run: npx playwright install chromium
 ```
 
 Pushes to `main` deploy to production through Vercel's GitHub integration.

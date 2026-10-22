@@ -799,7 +799,7 @@ Prioritize these features for the first usable release. Status as of 2026-10-21 
 - [x] Guest list search and RSVP filtering.
 - [x] CSV guest and RSVP exports. (Export only; no import.)
 - [ ] Editable wedding content. (Content lives in code and the settings table; no admin editor yet.)
-- [x] Basic security, accessibility, and automated tests. (Vitest unit tests and Playwright end-to-end tests; RSVP-flow and admin sign-in end-to-end tests still to come.)
+- [x] Basic security, accessibility, and automated tests. (Vitest unit tests; Playwright end-to-end tests for public pages, the RSVP flow, invitation pages, the chat button, and admin access control. An admin sign-in end-to-end test is still to come.) Every admin change and export is recorded in an audit log (section 16).
 
 The photo gallery, automated reminders, extensive analytics, registry integrations, and advanced customization can be implemented later if needed.
 

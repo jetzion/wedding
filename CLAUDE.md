@@ -28,7 +28,7 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 - `npm run db:migrate` — apply migrations to the database in `.env.local` (development)
 - `npm run db:studio` — browse the database
 - `npm test` — Vitest unit tests (`src/**/*.test.ts`)
-- `npm run test:e2e` — Playwright tests (`e2e/`, mobile viewport) against a dev server on port 3100 and the development database; with a dev server already running, `E2E_PORT=<its port> npm run test:e2e`. Tests that need data create fictional records and delete them afterwards (`e2e/invitation-page.spec.ts`; import `./load-env` before `@/db`). First run: `npx playwright install chromium`
+- `npm run test:e2e` — Playwright tests (`e2e/`, mobile viewport) against a dev server on port 3100 and the development database; with a dev server already running, `E2E_PORT=<its port> npm run test:e2e`. Tests that need data create fictional records and delete them afterwards (`e2e/invitation-page.spec.ts`, `e2e/rsvp-flow.spec.ts`; import `./load-env` before `@/db`, and run the file serially). First run: `npx playwright install chromium`
 - `npm run invite:test -- "Household" "First Last" ["First Last" ...] [--plus-one]` — create a test household with one or more guests in the development database, and print its invitation link
 
 ## Layout
@@ -49,6 +49,7 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 - Build and dev troubleshooting:
   - If `npm run build` fails with `next/font/google` errors although nothing font-related changed, the Turbopack cache was corrupt once (2026-10-21). Moving `.next/cache/turbopack` aside fixed it.
   - If the dev server reports that a newly added export "is not a function" while a fresh build works, restart the dev server (deleting `.next/dev` if needed).
+  - `next build` type-checks `e2e/` too, and a type error there stops the build after "Compiled successfully" (then `next start` finds no production build). Read the full build output, not just the compile line.
 - `docs/SPEC.md` — product specification
 - `PLAN.md` — current build plan; check off items as they are completed
 
