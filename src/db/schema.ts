@@ -60,6 +60,8 @@ export const events = pgTable("events", {
 export const households = pgTable("households", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
+  /** The invitation's link, /invitation/[linkName]: a readable name plus a random code. */
+  linkName: text("link_name").notNull().unique(),
   contactEmail: text("contact_email"),
   message: text("message"),
   confirmationCode: text("confirmation_code").unique(),

@@ -5,6 +5,7 @@ import { events, guestEvents, guests, households, rsvpResponses } from "@/db/sch
 import { requireAdmin } from "@/lib/admin/session";
 import { type GuestStatus, guestStatus } from "@/lib/admin/status";
 import type { InvitationInput } from "@/lib/admin/invitation-input";
+import { newLinkName } from "@/lib/invitation-link";
 import type { RsvpStatus } from "@/lib/rsvp/types";
 
 export type AdminGuest = {
@@ -21,6 +22,7 @@ export type AdminGuest = {
 export type AdminInvitation = {
   id: string;
   name: string;
+  linkName: string;
   contactEmail: string | null;
   message: string | null;
   confirmationCode: string | null;
@@ -49,6 +51,7 @@ export async function listInvitations(): Promise<AdminInvitation[]> {
   return householdRows.map((h) => ({
     id: h.id,
     name: h.name,
+    linkName: h.linkName,
     contactEmail: h.contactEmail,
     message: h.message,
     confirmationCode: h.confirmationCode,
@@ -104,7 +107,12 @@ export async function createInvitation(input: InvitationInput) {
   const people = [...input.guests.map(named), ...(input.plusOne ? [PLUS_ONE] : [])];
 
   await db.batch([
-    db.insert(households).values({ id: householdId, name: input.name, contactEmail: input.contactEmail || null }),
+    db.insert(households).values({
+      id: householdId,
+      name: input.name,
+      linkName: newLinkName(input.name),
+      contactEmail: input.contactEmail || null,
+    }),
     ...insertGuests(householdId, people, 1, await eventIds()),
   ]);
 }
@@ -159,6 +167,14 @@ export async function updateInvitation(id: string, input: InvitationInput) {
 /** One invitation by id, or undefined. Admins only. */
 export async function getInvitation(id: string) {
   return (await listInvitations()).find((i) => i.id === id);
+}
+
+/** Give an invitation a new link code, so its old link stops working. Admins only. */
+export async function replaceInvitationLink(id: string) {
+  await requireAdmin();
+  const [household] = await db.select({ name: households.name }).from(households).where(eq(households.id, id));
+  if (!household) return;
+  await db.update(households).set({ linkName: newLinkName(household.name) }).where(eq(households.id, id));
 }
 
 /** Delete a household. Its guests, event links, and RSVP answers are removed by cascade. Admins only. */

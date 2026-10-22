@@ -874,3 +874,11 @@ Defaults set while building the admin dashboard; change them if the couple prefe
 - If several households have an invited guest with that full name, the guest picks from a list of household names; nothing else is shown until they choose.
 - Only invited guests' names match, not plus-one names entered by guests.
 - **Accepted risk:** this departs from section 3.4 and section 8 ("sufficiently unpredictable" tokens). Anyone who knows an invited guest's full name can view and change that household's RSVP, including dietary and accessibility notes and the contact email. The couple chose this for convenience. Lookups and submissions stay rate-limited, and every submission is re-checked on the server.
+
+### Personal invitation page (decided 2026-10-21)
+
+- Each invitation has a link, `/invitation/[link name]`. The link name is the invitation name as a slug plus a 6-character random code, for example `/invitation/the-etzion-family-k7m2qx`. The code makes links unguessable, about 729 million possibilities per name, which follows section 3.4 and section 8.
+- The page is addressed to the invitation name ("Dear The Etzion Family,") and shows nothing else about the household: no guest names, RSVP answers, dietary or accessibility notes, or contact email. Wedding details not yet confirmed are shown as `[placeholders]`.
+- The RSVP button goes to the normal `/rsvp` page, where guests look themselves up by name. The link never opens or changes a household's RSVP.
+- An unknown, replaced, or deleted link shows one generic message ("We couldn't find this invitation"), so it never reveals which invitations exist. The page is not indexed by search engines, and its title does not include the household name.
+- Admins see and copy each link from the dashboard. Renaming an invitation keeps its link. "New link" on the edit page replaces the code, so the old link stops working at once (revocable, as section 4.3 requires).

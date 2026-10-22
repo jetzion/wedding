@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { editInvitation } from "@/app/admin/actions";
 import { AdminForm } from "@/components/admin/admin-form";
 import { InvitationFields } from "@/components/admin/invitation-fields";
+import { InvitationLink, NewLinkButton } from "@/components/admin/invitation-link";
+import { cardClass } from "@/components/rsvp/fields";
 import { getInvitation } from "@/lib/admin/invitations";
 
 export default function Page({ params }: PageProps<"/admin/invitations/[id]/edit">) {
@@ -30,8 +32,19 @@ async function EditInvitationForm({ id }: { id: string }) {
   if (!invitation) notFound();
 
   return (
-    <AdminForm action={editInvitation} submitLabel="Save changes">
-      <InvitationFields invitation={invitation} />
-    </AdminForm>
+    <>
+      <section className={`${cardClass} mx-auto max-w-md space-y-3`}>
+        <h2 className="text-sm uppercase tracking-[0.15em] text-ink-muted">Invitation link</h2>
+        <InvitationLink linkName={invitation.linkName} />
+        <p className="text-sm text-ink-muted">
+          Renaming the invitation keeps this link. If it was shared by mistake, make a new one; the old link will
+          stop working.
+        </p>
+        <NewLinkButton id={invitation.id} />
+      </section>
+      <AdminForm action={editInvitation} submitLabel="Save changes">
+        <InvitationFields invitation={invitation} />
+      </AdminForm>
+    </>
   );
 }

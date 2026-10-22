@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { InvitationLink } from "@/components/admin/invitation-link";
 import { cardClass } from "@/components/rsvp/fields";
 import type { AdminInvitation } from "@/lib/admin/invitations";
 import { type GuestStatus, summarize } from "@/lib/admin/status";
@@ -93,6 +94,8 @@ export function InvitationList({ invitations, timezone }: { invitations: AdminIn
               )}
             </dl>
           )}
+
+          <InvitationLink linkName={invitation.linkName} />
 
           <p className="flex justify-end gap-4 text-sm">
             <Link href={`/admin/invitations/${invitation.id}/rsvp`} className="text-sea underline">

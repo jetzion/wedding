@@ -10,13 +10,17 @@ async function main() {
   loadEnvConfig(process.cwd());
   const { db } = await import("@/db");
   const { events, guestEvents, guests, households } = await import("@/db/schema");
+  const { newLinkName } = await import("@/lib/invitation-link");
 
   const args = process.argv.slice(2);
   const plusOne = args.includes("--plus-one");
   const [householdName, ...people] = args.filter((a) => a !== "--plus-one");
   if (!householdName || !people.length) throw new Error("Usage: invite:test -- \"Household\" \"First Last\" [--plus-one]");
 
-  const [household] = await db.insert(households).values({ name: householdName }).returning();
+  const [household] = await db
+    .insert(households)
+    .values({ name: householdName, linkName: newLinkName(householdName) })
+    .returning();
   const guestRows = await db
     .insert(guests)
     .values([
@@ -34,6 +38,7 @@ async function main() {
     .values(guestRows.flatMap((g) => eventRows.map((e) => ({ guestId: g.id, eventId: e.id }))));
 
   console.log(`Created "${household.name}" with ${guestRows.length} guests and ${eventRows.length} events.`);
+  console.log(`Invitation link: /invitation/${household.linkName}`);
 }
 
 main();

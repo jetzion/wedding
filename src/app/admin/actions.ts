@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isAdminEmail } from "@/lib/admin-emails";
 import { parseInvitationForm } from "@/lib/admin/invitation-input";
-import { createInvitation, deleteInvitation, updateInvitation } from "@/lib/admin/invitations";
+import { createInvitation, deleteInvitation, replaceInvitationLink, updateInvitation } from "@/lib/admin/invitations";
 import { loadHouseholdRsvp, saveRsvpCorrection } from "@/lib/admin/rsvp";
 import { parseRsvpCorrection } from "@/lib/admin/rsvp-correction";
 import { requireAdmin } from "@/lib/admin/session";
@@ -112,6 +112,14 @@ export async function removeInvitation(form: FormData) {
   const id = z.uuid().parse(form.get("id"));
   await deleteInvitation(id);
   redirect("/admin");
+}
+
+/** Replace an invitation's link after the admin confirms; the old link stops working. */
+export async function newInvitationLink(form: FormData) {
+  await requireAdmin();
+  const id = z.uuid().parse(form.get("id"));
+  await replaceInvitationLink(id);
+  redirect(`/admin/invitations/${id}/edit`);
 }
 
 /** Save changes from the edit invitation form. */
