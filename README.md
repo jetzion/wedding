@@ -35,7 +35,7 @@ Each invitation has a personal page at `/invitation/[link name]`, such as `/invi
 Photos are from Unsplash (Unsplash License) unless noted:
 
 - Home (rotating): [Blake Wisz](https://unsplash.com/photos/turquoise-ocean-waves-gently-lap-a-white-sand-beach-0r0KWZo50KA), [Derick McKinney](https://unsplash.com/photos/white-sand-beach-under-clear-blue-sky-j2Rv2CZTwaI), [Miltiadis Fragkidis](https://unsplash.com/photos/lush-tropical-island-with-white-sand-beach-and-turquoise-sea-pwiqvi98VGo) (Punta Cana, Dominican Republic), [Annie Gray](https://unsplash.com/photos/wsZoSshuhdQ) (Pensacola Beach, FL)
-- Invitation page: the first home photo (Blake Wisz)
-- Our Story: the couple's own photo
+- Invitation page: the first home photo (Blake Wisz) behind a watercolor card background supplied 2026-10-22 (source and license to be confirmed)
+- Our Story: the couple's own photos (banner, proposal, engagement gallery)
 - Details, Travel, FAQ: supplied by the couple 2026-10-21 (source and license to be confirmed)
 - RSVP: Maldives seaside resort (source and license to be confirmed)

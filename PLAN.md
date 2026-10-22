@@ -4,24 +4,30 @@ Working plan for the next steps. The full roadmap is in `docs/SPEC.md` section 1
 
 ## Next steps
 
-Status 2026-10-21: the public site, RSVP by name, personal invitation pages, and the admin dashboard (with an activity log) are live at https://greg-daniella.vercel.app. Wedding Details, Travel, and FAQ are still "Coming soon" pages, and the date, venue, and deadline are placeholders.
+Status 2026-10-22: the public site, RSVP by name, personal invitation pages, and the admin dashboard (with an activity log) are live at https://greg-daniella.vercel.app. Wedding Details, Travel, and FAQ are still "Coming soon" pages, and the date, venue, and deadline are placeholders.
 
 Ready to build now:
 
 1. End-to-end test of admin sign-in and change password. Approach used for manual checks so far: a production build on port 3100 with temporary `ADMIN_EMAILS=admin-test@example.com` and a throwaway `ADMIN_SETUP_CODE`, deleting the test account afterwards.
 
+Open questions for Jack:
+
+- The invitation background (`src/assets/invitation-background.jpg`) is shaped for desktop; on phones the card is much taller, so its sides (gold frame, most palms) are cropped. Options: keep, stretch, or supply a phone-shaped version (about 1:2.4) to show on phones.
+- On phones the floating "Chat with us" button covers part of the invitation's date line (it floats over every page).
+- `src/assets/page-faq-original.jpg` (13 MB full-size original) was committed in `3c06f2b`, although originals are meant to stay out of git. Untrack it?
+
 Waiting on the couple:
 
 2. Real wedding date, start time, venue, city, dress code, and RSVP deadline, for the home page and the invitation page placeholders.
 3. Content for Our Story (about 50 `[bracketed]` placeholders in `src/content/story.ts`), Wedding Details, Travel, and FAQ.
-4. Confirm the source and license of the banner photos for the README credits: RSVP (Maldives seaside resort), and the Wedding Details, Travel, and FAQ photos added 2026-10-21. The Our Story banner is the couple's own photo.
+4. Confirm the source and license of the photos for the README credits: RSVP (Maldives seaside resort), the Wedding Details, Travel, and FAQ photos added 2026-10-21, and the invitation's watercolor background added 2026-10-22. The Our Story banner and engagement photos are the couple's own.
 5. Remove the placeholder invitations (migrations `0008` and `0009`) and enter the real ones in admin, then share each household's invitation link (on hold: keeping the placeholders for testing for now). Check the spelling "Mark Grafinkel": guests must type their name exactly, and couples sharing a last name are greeted "Susan and Mark Garfinkel" only if the spellings match.
 6. Admins: `ADMIN_EMAILS` in production is `jack@etzion.us,daniella@etzion.us` (set and redeployed 2026-10-21); Daniella still needs to sign up at `/admin/setup` (not yet confirmed). Add Greg and the planner once their emails are known.
 7. Choose an email provider; send RSVP confirmation emails (and, if wanted, email each household its invitation link).
 
 ## Invitation page (done, live since `24435b4`)
 
-A personal invitation for each household at `greg-daniella.vercel.app/invitation/[link name]`, addressed to the invitation's name (for example "The Etzion Family"). It matches the site: beach photo, frosted sand card, Cormorant serif headings, seafoam divider, sea-blue buttons. Anything the couple has not confirmed is shown as a `[bracketed]` placeholder, as on Our Story.
+A personal invitation for each household at `greg-daniella.vercel.app/invitation/[link name]`, addressed to the invitation's name (for example "The Etzion Family"). It matches the site: beach photo behind a card with a watercolor background (palms, ocean, white sand, gold frame; `invitation-background.jpg`, since `fac5f99`), Cormorant serif headings, gold dividers, sea-blue buttons. Anything the couple has not confirmed is shown as a `[bracketed]` placeholder, as on Our Story.
 
 ### Decisions (2026-10-21)
 
@@ -45,7 +51,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 │  │                               │  │
 │  │  request the pleasure of your │  │
 │  │  company at their wedding     │  │
-│  │           ────                │  │  seafoam divider
+│  │           ─◆─                 │  │  gold divider
 │  │   [Saturday, Month Day, Year] │  │
 │  │   [Ceremony time]             │  │
 │  │   [Venue name]                │  │
@@ -110,6 +116,9 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] Activity log of admin changes and exports at `/admin/activity` (`4c80701`)
 - [x] RSVP-flow end-to-end test (`b82cff1`)
 - [x] "Chat with us" hidden on admin pages (`ef14e77`)
+- [x] Invitation card decorated: watercolor stationery background and gold dividers (`54ba19b`, `fac5f99`)
+- [x] Our Story: engagement photo 04 is The Proposal photo, cropped to keep faces (`Photo.position`), and left out of the engagement gallery (`47d8f1f`)
+- [x] Engagement gallery as an even grid with full rows: tall photos one cell, wide photos two cells alternating sides, a wide last photo full width (`1bedbc0`)
 
 ## Phase 1 — Foundation
 
@@ -162,7 +171,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] Hero section and RSVP button (four beach photos cross-fade every 6 seconds; reduced motion keeps the first)
 
 ### 5. Other pages
-- [x] Our Story: sections, timeline, engagement photos, and Q&A built; text is `[placeholder]` until the couple provides it (next step 3)
+- [x] Our Story: sections, timeline, proposal photo, engagement gallery, and Q&A built; text is `[placeholder]` until the couple provides it (next step 3)
 - [ ] Wedding Details, Travel, FAQ: "Coming soon" pages with banners; content needed (next step 3)
 - [x] Game: engagement-photo memory game (10 wrong guesses allowed)
 - [x] Personal invitation page at `/invitation/[link name]`; date, venue, and deadline are placeholders (next step 2)
