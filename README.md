@@ -4,6 +4,8 @@ Public wedding website with RSVP, plus a private admin dashboard. See `docs/SPEC
 
 Stack: Next.js, TypeScript, Tailwind CSS, Neon Postgres, Drizzle, Better Auth. Hosted on Vercel.
 
+Live at https://greg-daniella.vercel.app. Wedding date, venue, and most page content are still placeholders; current status and next steps are in `PLAN.md`.
+
 ## Development
 
 ```bash

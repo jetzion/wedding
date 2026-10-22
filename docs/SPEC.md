@@ -783,23 +783,23 @@ Build incrementally. Get the essential guest journey working before implementing
 
 ## 14. Minimum Viable Product
 
-Prioritize these features for the first usable release:
+Prioritize these features for the first usable release. Status as of 2026-10-21 (details in `PLAN.md`):
 
-- [ ] Elegant, responsive homepage.
-- [ ] Couple's story and wedding details.
-- [ ] Event schedules and locations.
-- [ ] Travel and accommodation information.
-- [ ] Frequently asked questions.
-- [ ] Secure invitation links or codes.
-- [ ] Individual and household guest management.
-- [ ] Event-specific RSVP functionality.
-- [ ] Meal preferences and dietary restrictions.
-- [ ] RSVP confirmation.
-- [ ] Private administrator dashboard.
-- [ ] Guest list search and RSVP filtering.
-- [ ] CSV guest and RSVP exports.
-- [ ] Editable wedding content.
-- [ ] Basic security, accessibility, and automated tests.
+- [x] Elegant, responsive homepage. (Date and venue are placeholders.)
+- [ ] Couple's story and wedding details. (Our Story is built with placeholder text; Wedding Details is "Coming soon".)
+- [ ] Event schedules and locations. (One combined "Ceremony & Reception" event, unpublished placeholder.)
+- [ ] Travel and accommodation information. ("Coming soon".)
+- [ ] Frequently asked questions. ("Coming soon".)
+- [x] Secure invitation links or codes. (Personal invitation pages with unguessable links; RSVP itself is by guest name, an accepted risk in section 16.)
+- [x] Individual and household guest management.
+- [x] Event-specific RSVP functionality.
+- [x] Meal preferences and dietary restrictions. (Dietary and accessibility notes; no meal choices.)
+- [x] RSVP confirmation. (On-screen confirmation code; confirmation emails wait on an email provider.)
+- [x] Private administrator dashboard.
+- [x] Guest list search and RSVP filtering.
+- [x] CSV guest and RSVP exports. (Export only; no import.)
+- [ ] Editable wedding content. (Content lives in code and the settings table; no admin editor yet.)
+- [x] Basic security, accessibility, and automated tests. (Vitest unit tests and Playwright end-to-end tests; RSVP-flow and admin sign-in end-to-end tests still to come.)
 
 The photo gallery, automated reminders, extensive analytics, registry integrations, and advanced customization can be implemented later if needed.
 
