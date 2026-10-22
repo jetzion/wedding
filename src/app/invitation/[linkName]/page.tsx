@@ -17,7 +17,11 @@ const card = `${frostedPanel} flex w-full max-w-xl flex-col items-center gap-6 p
 const divider = <div aria-hidden className="h-px w-24 bg-seafoam" />;
 const eyebrow = "text-sm uppercase tracking-[0.3em] text-ink-muted";
 
-/** A household's personal invitation at /invitation/[linkName]. Shows the invitation name only. */
+/**
+ * A household's personal invitation at /invitation/[linkName], addressed by
+ * invitationGreeting(): one or two guests by full name, larger households by
+ * invitation name.
+ */
 export default function Page({ params }: PageProps<"/invitation/[linkName]">) {
   return (
     <main className="relative flex flex-1 items-center justify-center px-4 py-24">
@@ -52,7 +56,7 @@ async function Invitation({ linkName }: { linkName: string }) {
   return (
     <article className={card}>
       <p className={eyebrow}>You&apos;re invited</p>
-      <p className="font-serif text-2xl italic sm:text-3xl">Dear {invitation.name},</p>
+      <p className="font-serif text-2xl text-balance italic sm:text-3xl">Dear {invitation.greeting},</p>
       <h1 className="font-serif text-5xl font-medium leading-tight sm:text-6xl">
         {first}
         <span className="block text-3xl text-ink-muted sm:text-4xl">&amp;</span>

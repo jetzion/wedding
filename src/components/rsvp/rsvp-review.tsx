@@ -112,7 +112,7 @@ export function RsvpConfirmation({
           Confirmation number <strong className="tracking-wider text-ink">{confirmationCode}</strong>
         </p>
         <p className="mt-1 text-sm text-ink-muted">
-          You can come back with your code to make changes until the RSVP deadline.
+          To make changes before the RSVP deadline, come back and enter your name again.
         </p>
       </div>
       <Summary invitation={invitation} state={state} />

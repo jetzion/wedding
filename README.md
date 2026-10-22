@@ -28,7 +28,7 @@ Admins sign in at `/admin/sign-in`. `/admin` lists every invitation with each pe
 
 ## Invitations
 
-Each invitation has a personal page at `/invitation/[link name]`, such as `/invitation/the-etzion-family-k7m2qx`: the invitation name plus a random code, so links cannot be guessed. The page greets the household by its invitation name and links to the RSVP page; it shows no guest details. Links are created with each invitation, shown on the admin dashboard, and can be replaced from the edit page.
+Each invitation has a personal page at `/invitation/[link name]`, such as `/invitation/the-etzion-family-k7m2qx`: the invitation name plus a random code, so links cannot be guessed. The page greets one or two guests by full name ("John Smith and Jane Doe", plus "and Guest" for a plus-one) and larger households by the invitation name ("The Smith Family"), and links to the RSVP page; it shows no RSVP answers or contact details. Links are created with each invitation, shown on the admin dashboard, and can be replaced from the edit page.
 
 ## Credits
 

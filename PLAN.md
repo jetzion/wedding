@@ -8,7 +8,7 @@ Status 2026-10-21: the public site, RSVP by name, the admin dashboard, and perso
 
 Ready to build now:
 
-1. End-to-end test of the RSVP flow with a fictional test household (created and removed in the development database).
+1. ~~End-to-end test of the RSVP flow~~ Done: `e2e/rsvp-flow.spec.ts`.
 2. Audit records for invitation changes, deletions, link replacements, RSVP corrections, and CSV exports (docs/SPEC.md sections 5 and 6).
 3. Optional: hide the "Chat with us" button on admin pages.
 4. End-to-end test of admin sign-in and change password. Approach used for manual checks so far: a production build on port 3100 with temporary `ADMIN_EMAILS=admin-test@example.com` and a throwaway `ADMIN_SETUP_CODE`, deleting the test account afterwards.
@@ -29,7 +29,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 ### Decisions (2026-10-21)
 
 1. **Links are the invitation name plus a short random code**, such as `/invitation/the-etzion-family-k7m2qx`. They stay readable but can't be guessed, which follows the spec's unpredictable-token rule.
-2. **The page shows the invitation name only.** No guest names, RSVP answers, dietary notes, or contact email.
+2. **Greeting** (changed 2026-10-21 from "invitation name only"): one guest by full name ("Jane Doe"), two by both full names ("John Smith and Jane Doe"), three or more by the invitation name ("The Smith Family"); a plus-one slot adds "and Guest" to one or two names. No titles (`src/lib/invitation-greeting.ts`). No RSVP answers, dietary notes, or contact email.
 3. **The RSVP button goes to the normal `/rsvp` page**, where guests look themselves up by name. The link never opens a household's answers directly.
 
 ### Design (mobile first)
@@ -40,7 +40,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 │  ┌───────────────────────────────┐  │
 │  │      YOU'RE INVITED           │  │  small caps, ink-muted
 │  │                               │  │
-│  │   Dear The Etzion Family,     │  │  serif, the invitation name
+│  │   Dear The Etzion Family,     │  │  serif, the greeting (see 2.)
 │  │                               │  │
 │  │   Daniella Etzion             │  │  serif, large (from settings)
 │  │         &                     │  │
@@ -82,7 +82,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 6. [x] **Tests:**
    - Unit tests for the link names and link format (`src/lib/invitation-link.test.ts`); the lookup was checked against the development database.
    - `e2e/invitation-page.spec.ts` creates a fictional household ("The Playwright Household") in the development database and deletes it afterwards.
-     - Its link shows its name, the couple, and an RSVP button to `/rsvp`, but no guest names.
+     - A two-guest household is greeted by both full names; after a third guest is added, by the invitation name. The page has the couple and an RSVP button to `/rsvp`.
      - The link works in capitals.
      - The tab title is "You're invited", and the page is `noindex`.
      - A missing or wrong code shows the generic message, and so does a replaced link.
@@ -179,7 +179,8 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`; remove before real invitations go out
 - [ ] Enter the real invitations in admin (create and edit are ready; next step 8)
 - [x] Playwright set up (`npm run test:e2e`): public pages load; home page countdown ticks; every admin page and the CSV export deny signed-out visitors; invitation page (fictional household, created and deleted by the test)
-- [ ] End-to-end: RSVP flow (next step 1); admin sign-in and change password (next step 4)
+- [x] End-to-end: RSVP flow (`e2e/rsvp-flow.spec.ts`, fictional "The Rsvptest Household" created and deleted by the test): unknown and plus-one names get the generic message; missing answers are caught and nothing is saved; a full RSVP (attending with a dietary note, declining, named plus-one) is saved with a `GD-` code; coming back shows the code, prefills the answers, and keeps the code after a change
+- [ ] End-to-end: admin sign-in and change password (next step 4)
 
 ## Open decisions
 
