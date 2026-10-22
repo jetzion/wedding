@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 const chatButton = (page: import("@playwright/test").Page) => page.getByRole("button", { name: "Chat with us" });
 
 test("the chat button is on guest pages", async ({ page }) => {
-  for (const path of ["/", "/rsvp", "/invitation/not-a-real-link-abcdef"]) {
+  for (const path of ["/", "/rsvp"]) {
     await page.goto(path);
     await expect(chatButton(page)).toBeVisible();
   }
@@ -15,6 +15,15 @@ test("the chat button is not on admin pages", async ({ page }) => {
     await expect(page.getByRole("heading", { name: "Admin sign-in" })).toBeVisible();
     await expect(chatButton(page)).toHaveCount(0);
   }
+});
+
+test("the chat button is not on invitation pages", async ({ page }) => {
+  await page.goto("/invitation/not-a-real-link-abcdef");
+  await expect(page.getByRole("heading", { name: "We couldn't find this invitation" })).toBeVisible();
+  await expect(chatButton(page)).toHaveCount(0);
+  await page.getByRole("main").getByRole("link", { name: "RSVP", exact: true }).click();
+  await expect(page).toHaveURL(/\/rsvp$/);
+  await expect(chatButton(page)).toBeVisible();
 });
 
 test("the chat button comes back after leaving the admin area", async ({ page }) => {

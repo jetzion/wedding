@@ -13,7 +13,6 @@ Ready to build now:
 Open questions for Jack:
 
 - The invitation background (`src/assets/invitation-background.jpg`) is shaped for desktop; on phones the card is much taller, so its sides (gold frame, most palms) are cropped. Options: keep, stretch, or supply a phone-shaped version (about 1:2.4) to show on phones.
-- On phones the floating "Chat with us" button covers part of the invitation's date line (it floats over every page).
 - `src/assets/page-faq-original.jpg` (13 MB full-size original) was committed in `3c06f2b`, although originals are meant to stay out of git. Untrack it?
 
 Waiting on the couple:
@@ -116,6 +115,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] Activity log of admin changes and exports at `/admin/activity` (`4c80701`)
 - [x] RSVP-flow end-to-end test (`b82cff1`)
 - [x] "Chat with us" hidden on admin pages (`ef14e77`)
+- [x] "Chat with us" hidden on invitation pages too: on phones the floating button covered the invitation's date line, and the card's full-width text leaves no free corner. Guests get the chat after tapping RSVP or Wedding details
 - [x] Invitation card decorated: watercolor stationery background and gold dividers (`54ba19b`, `fac5f99`)
 - [x] Our Story: engagement photo 04 is The Proposal photo, cropped to keep faces (`Photo.position`), and left out of the engagement gallery (`47d8f1f`)
 - [x] Engagement gallery as an even grid with full rows: tall photos one cell, wide photos two cells alternating sides, a wide last photo full width (`1bedbc0`)
@@ -161,7 +161,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] `/admin/invitations` redirects to `/admin`
 - [x] Site nav reads the URL inside `<Suspense>`, so routes with dynamic params build
 - [x] Audit records (`audit_log`, migration `0012`): adding, editing, and deleting invitations, new invitation links, RSVP corrections, and CSV exports, each saved in the same database batch as the change it records (the export record is saved before the download). Summaries hold invitation names and counts only. Listed newest first (latest 200) on the Activity page, `/admin/activity`, linked from the dashboard
-- [x] "Chat with us" button hidden on admin pages (`GuestWeddingChat` checks the URL inside `<Suspense>`); `e2e/chat-button.spec.ts` checks guest pages, admin pages, and that it returns after leaving the admin area
+- [x] "Chat with us" button hidden on admin and invitation pages (`GuestWeddingChat` checks the URL inside `<Suspense>`); `e2e/chat-button.spec.ts` checks guest pages, admin pages, invitation pages, and that it returns after leaving them
 
 ## Phase 2 — Public website
 

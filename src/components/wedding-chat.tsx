@@ -9,9 +9,13 @@ type Turn = { role: "user" | "assistant"; content: string };
 
 type ChatProps = { starters: string[]; speakers: string[] };
 
-/** The chat on guest pages only, not in the admin area. Reads the URL, so render it inside Suspense. */
+/** Pages without the chat: the admin area, and invitations, whose card text would sit under the button. */
+const NO_CHAT = ["/admin", "/invitation/"];
+
+/** The chat on guest pages only. Reads the URL, so render it inside Suspense. */
 export function GuestWeddingChat(props: ChatProps) {
-  return usePathname().startsWith("/admin") ? null : <WeddingChat {...props} />;
+  const pathname = usePathname();
+  return NO_CHAT.some((prefix) => pathname.startsWith(prefix)) ? null : <WeddingChat {...props} />;
 }
 
 /** Floating Q&A chat about the wedding. */
