@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { WeddingChat } from "@/components/wedding-chat";
+import { GuestWeddingChat } from "@/components/wedding-chat";
 import { getWeddingSettings } from "@/lib/settings";
 
 const starters = ["When is the wedding?", "Where should I stay?", "How do I RSVP?"];
@@ -37,10 +38,12 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         {children}
         <SiteFooter />
-        <WeddingChat
-          speakers={firstNames}
-          starters={[...firstNames.map((name) => `Who is ${name}?`), ...starters]}
-        />
+        <Suspense fallback={null}>
+          <GuestWeddingChat
+            speakers={firstNames}
+            starters={[...firstNames.map((name) => `Who is ${name}?`), ...starters]}
+          />
+        </Suspense>
       </body>
     </html>
   );

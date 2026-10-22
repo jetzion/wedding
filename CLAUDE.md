@@ -43,7 +43,7 @@ Next.js 16 has breaking changes from older versions. See @AGENTS.md and read the
 - `e2e/` — Playwright tests
 - `src/assets/` — photos. Banners are resized to about 2400px wide (`sips -Z 2400`); full-size originals stay out of git
 - `.agents/skills/` — Neon agent skills (linked from `.claude/skills/`, pinned in `skills-lock.json`)
-- Routes with dynamic params (such as `/admin/invitations/[id]/...`) are only known at request time: read `params` inside `<Suspense>`, and keep anything calling `usePathname()` (the site nav) inside `<Suspense>`, or the build fails.
+- Routes with dynamic params (such as `/admin/invitations/[id]/...`) are only known at request time: read `params` inside `<Suspense>`, and keep anything calling `usePathname()` (the site nav, and `GuestWeddingChat`, which hides the chat under `/admin`) inside `<Suspense>`, or the build fails. Hide things per route by URL, not with CSS like `:has()`: Next keeps visited pages in the DOM, hidden, after you navigate away.
 - Databases: Neon `wedding-db` for development, `neon-bole-zebra` for preview and production. Production secrets cannot be pulled locally; production migrations run in the Vercel build.
 - Vercel variables marked sensitive (`ADMIN_EMAILS`, `ADMIN_SETUP_CODE`, `DATABASE_URL`, ...) cannot be read back, even in the dashboard. `vercel env update` replaces the whole value, so get the full current value (such as every admin email) from the user first. A change applies only after a redeploy (`vercel redeploy <deployment url> --target production`).
 - Build and dev troubleshooting:

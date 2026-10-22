@@ -1,13 +1,21 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { ChatReply } from "@/components/chat-reply";
 import { streamChat } from "@/lib/stream";
 
 type Turn = { role: "user" | "assistant"; content: string };
 
+type ChatProps = { starters: string[]; speakers: string[] };
+
+/** The chat on guest pages only, not in the admin area. Reads the URL, so render it inside Suspense. */
+export function GuestWeddingChat(props: ChatProps) {
+  return usePathname().startsWith("/admin") ? null : <WeddingChat {...props} />;
+}
+
 /** Floating Q&A chat about the wedding. */
-export function WeddingChat({ starters, speakers }: { starters: string[]; speakers: string[] }) {
+export function WeddingChat({ starters, speakers }: ChatProps) {
   const [open, setOpen] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");

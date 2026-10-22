@@ -10,7 +10,7 @@ Ready to build now:
 
 1. ~~End-to-end test of the RSVP flow~~ Done: `e2e/rsvp-flow.spec.ts`.
 2. ~~Audit records~~ Done: `audit_log` table (migration `0012`) and the Activity page at `/admin/activity`.
-3. Optional: hide the "Chat with us" button on admin pages.
+3. ~~Hide the "Chat with us" button on admin pages~~ Done.
 4. End-to-end test of admin sign-in and change password. Approach used for manual checks so far: a production build on port 3100 with temporary `ADMIN_EMAILS=admin-test@example.com` and a throwaway `ADMIN_SETUP_CODE`, deleting the test account afterwards.
 
 Waiting on the couple:
@@ -151,7 +151,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] `/admin/invitations` redirects to `/admin`
 - [x] Site nav reads the URL inside `<Suspense>`, so routes with dynamic params build
 - [x] Audit records (`audit_log`, migration `0012`): adding, editing, and deleting invitations, new invitation links, RSVP corrections, and CSV exports, each saved in the same database batch as the change it records (the export record is saved before the download). Summaries hold invitation names and counts only. Listed newest first (latest 200) on the Activity page, `/admin/activity`, linked from the dashboard
-- [ ] Optional: hide the "Chat with us" button on admin pages (next step 3)
+- [x] "Chat with us" button hidden on admin pages (`GuestWeddingChat` checks the URL inside `<Suspense>`); `e2e/chat-button.spec.ts` checks guest pages, admin pages, and that it returns after leaving the admin area
 
 ## Phase 2 — Public website
 
