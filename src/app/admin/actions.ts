@@ -140,6 +140,6 @@ export async function correctRsvp(_: FormResult, form: FormData): Promise<FormRe
   if (!loaded) return { error: "This invitation no longer exists." };
   const parsed = parseRsvpCorrection(loaded.invitation.guests, form);
   if (!parsed.ok) return { error: parsed.error };
-  await saveRsvpCorrection(parsed.data);
+  await saveRsvpCorrection({ id: loaded.householdId, name: loaded.invitation.householdName }, parsed.data);
   redirect("/admin");
 }

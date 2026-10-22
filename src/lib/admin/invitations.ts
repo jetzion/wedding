@@ -1,7 +1,9 @@
 import "server-only";
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, count, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { events, guestEvents, guests, households, rsvpResponses } from "@/db/schema";
+import { auditEntry } from "@/lib/admin/audit";
+import { createdSummary, deletedSummary, updatedSummary } from "@/lib/admin/audit-summary";
 import { requireAdmin } from "@/lib/admin/session";
 import { type GuestStatus, guestStatus } from "@/lib/admin/status";
 import type { InvitationInput } from "@/lib/admin/invitation-input";
@@ -102,7 +104,7 @@ async function eventIds() {
 
 /** Create a household and its guests, each invited to every event. Admins only. */
 export async function createInvitation(input: InvitationInput) {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   const householdId = crypto.randomUUID();
   const people = [...input.guests.map(named), ...(input.plusOne ? [PLUS_ONE] : [])];
 
@@ -114,6 +116,12 @@ export async function createInvitation(input: InvitationInput) {
       contactEmail: input.contactEmail || null,
     }),
     ...insertGuests(householdId, people, 1, await eventIds()),
+    auditEntry(
+      user.email,
+      "invitation.create",
+      householdId,
+      createdSummary(input.name, input.guests.length, input.plusOne),
+    ),
   ]);
 }
 
@@ -127,8 +135,8 @@ const STALE = "This invitation changed since you opened it. Reload the page and 
  * success. Admins only.
  */
 export async function updateInvitation(id: string, input: InvitationInput) {
-  await requireAdmin();
-  const [household] = await db.select({ id: households.id }).from(households).where(eq(households.id, id));
+  const { user } = await requireAdmin();
+  const [household] = await db.select({ name: households.name }).from(households).where(eq(households.id, id));
   if (!household) return STALE;
   const existing = await db.select().from(guests).where(eq(guests.householdId, id));
   const namedIds = existing.filter((g) => !g.isPlusOne).map((g) => g.id);
@@ -161,6 +169,19 @@ export async function updateInvitation(id: string, input: InvitationInput) {
       ? [db.update(guests).set({ sortOrder: plusOneSortOrder }).where(inHousehold(plusOne.id))]
       : []),
     ...(!input.plusOne && plusOne ? [db.delete(guests).where(inHousehold(plusOne.id))] : []),
+    auditEntry(
+      user.email,
+      "invitation.update",
+      id,
+      updatedSummary({
+        oldName: household.name,
+        newName: input.name,
+        added: added.length,
+        removed: input.removeIds.length,
+        plusOneBefore: Boolean(plusOne),
+        plusOneAfter: input.plusOne,
+      }),
+    ),
   ]);
 }
 
@@ -171,14 +192,23 @@ export async function getInvitation(id: string) {
 
 /** Give an invitation a new link code, so its old link stops working. Admins only. */
 export async function replaceInvitationLink(id: string) {
-  await requireAdmin();
+  const { user } = await requireAdmin();
   const [household] = await db.select({ name: households.name }).from(households).where(eq(households.id, id));
   if (!household) return;
-  await db.update(households).set({ linkName: newLinkName(household.name) }).where(eq(households.id, id));
+  await db.batch([
+    db.update(households).set({ linkName: newLinkName(household.name) }).where(eq(households.id, id)),
+    auditEntry(user.email, "invitation.new_link", id, `${household.name}: new link; the old link stopped working`),
+  ]);
 }
 
 /** Delete a household. Its guests, event links, and RSVP answers are removed by cascade. Admins only. */
 export async function deleteInvitation(id: string) {
-  await requireAdmin();
-  await db.delete(households).where(eq(households.id, id));
+  const { user } = await requireAdmin();
+  const [household] = await db.select({ name: households.name }).from(households).where(eq(households.id, id));
+  if (!household) return;
+  const [{ people }] = await db.select({ people: count() }).from(guests).where(eq(guests.householdId, id));
+  await db.batch([
+    db.delete(households).where(eq(households.id, id)),
+    auditEntry(user.email, "invitation.delete", id, deletedSummary(household.name, people)),
+  ]);
 }

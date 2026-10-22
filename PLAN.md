@@ -9,7 +9,7 @@ Status 2026-10-21: the public site, RSVP by name, the admin dashboard, and perso
 Ready to build now:
 
 1. ~~End-to-end test of the RSVP flow~~ Done: `e2e/rsvp-flow.spec.ts`.
-2. Audit records for invitation changes, deletions, link replacements, RSVP corrections, and CSV exports (docs/SPEC.md sections 5 and 6).
+2. ~~Audit records~~ Done: `audit_log` table (migration `0012`) and the Activity page at `/admin/activity`.
 3. Optional: hide the "Chat with us" button on admin pages.
 4. End-to-end test of admin sign-in and change password. Approach used for manual checks so far: a production build on port 3100 with temporary `ADMIN_EMAILS=admin-test@example.com` and a throwaway `ADMIN_SETUP_CODE`, deleting the test account afterwards.
 
@@ -29,7 +29,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 ### Decisions (2026-10-21)
 
 1. **Links are the invitation name plus a short random code**, such as `/invitation/the-etzion-family-k7m2qx`. They stay readable but can't be guessed, which follows the spec's unpredictable-token rule.
-2. **Greeting** (changed 2026-10-21 from "invitation name only"): one guest by full name ("Jane Doe"), two by both full names ("John Smith and Jane Doe"), three or more by the invitation name ("The Smith Family"); a plus-one slot adds "and Guest" to one or two names. No titles (`src/lib/invitation-greeting.ts`). No RSVP answers, dietary notes, or contact email.
+2. **Greeting** (changed 2026-10-21 from "invitation name only"): one guest by full name ("Jane Doe"), two by both full names ("John Smith and Jane Doe"), or "John and Jane Smith" when they share a last name, three or more by the invitation name plus "Family" ("The Smiths" becomes "Dear The Smiths Family,"; a name already ending in "Family", such as "The Smith Family", is not repeated); a plus-one slot adds "and Guest" to one or two names. No titles (`src/lib/invitation-greeting.ts`). No RSVP answers, dietary notes, or contact email.
 3. **The RSVP button goes to the normal `/rsvp` page**, where guests look themselves up by name. The link never opens a household's answers directly.
 
 ### Design (mobile first)
@@ -82,7 +82,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 6. [x] **Tests:**
    - Unit tests for the link names and link format (`src/lib/invitation-link.test.ts`); the lookup was checked against the development database.
    - `e2e/invitation-page.spec.ts` creates a fictional household ("The Playwright Household") in the development database and deletes it afterwards.
-     - A two-guest household is greeted by both full names; after a third guest is added, by the invitation name. The page has the couple and an RSVP button to `/rsvp`.
+     - A two-guest household sharing a last name is greeted "Pat and Robin Playwright"; after a third guest is added, by the invitation name plus "Family". The page has the couple and an RSVP button to `/rsvp`.
      - The link works in capitals.
      - The tab title is "You're invited", and the page is `noindex`.
      - A missing or wrong code shows the generic message, and so does a replaced link.
@@ -150,7 +150,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] CSV export at `/admin/export`: one row per guest; spreadsheet formulas defused
 - [x] `/admin/invitations` redirects to `/admin`
 - [x] Site nav reads the URL inside `<Suspense>`, so routes with dynamic params build
-- [ ] Audit records for invitation changes, deletions, RSVP corrections, and exports (next step 2)
+- [x] Audit records (`audit_log`, migration `0012`): adding, editing, and deleting invitations, new invitation links, RSVP corrections, and CSV exports, each saved in the same database batch as the change it records (the export record is saved before the download). Summaries hold invitation names and counts only. Listed newest first (latest 200) on the Activity page, `/admin/activity`, linked from the dashboard
 - [ ] Optional: hide the "Chat with us" button on admin pages (next step 3)
 
 ## Phase 2 — Public website
@@ -178,7 +178,7 @@ A personal invitation for each household at `greg-daniella.vercel.app/invitation
 - [x] Multi-person test invitation on the live site: "The Rivera Household" (Alex, Sam, Jordan Rivera), migration `0008`; remove before real invitations go out
 - [x] Placeholder family invitations: "The Etzion Family" (Jack, Michelle, Ori Etzion) and "The Garfinkel Family" (Susan Garfinkel, Mark Grafinkel), migration `0009`, replacing the one-person placeholders from `0004`; remove before real invitations go out
 - [ ] Enter the real invitations in admin (create and edit are ready; next step 8)
-- [x] Playwright set up (`npm run test:e2e`): public pages load; home page countdown ticks; every admin page and the CSV export deny signed-out visitors; invitation page (fictional household, created and deleted by the test)
+- [x] Playwright set up (`npm run test:e2e`): public pages load; home page countdown ticks; every admin page (including Activity and Change password) and the CSV export deny signed-out visitors; invitation page (fictional household, created and deleted by the test)
 - [x] End-to-end: RSVP flow (`e2e/rsvp-flow.spec.ts`, fictional "The Rsvptest Household" created and deleted by the test): unknown and plus-one names get the generic message; missing answers are caught and nothing is saved; a full RSVP (attending with a dietary note, declining, named plus-one) is saved with a `GD-` code; coming back shows the code, prefills the answers, and keeps the code after a change
 - [ ] End-to-end: admin sign-in and change password (next step 4)
 

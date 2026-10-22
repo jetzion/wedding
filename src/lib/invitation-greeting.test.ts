@@ -15,10 +15,25 @@ describe("invitationGreeting", () => {
     );
   });
 
-  it("uses the invitation name for three or more guests", () => {
+  it("shares the last name for a couple with the same last name", () => {
+    expect(invitationGreeting("The Smiths", [guest("John", "Smith"), guest("Jane", "Smith")])).toBe(
+      "John and Jane Smith",
+    );
+    expect(invitationGreeting("The Smiths", [guest("John", "Smith"), guest("Jane", "SMITH"), plusOne])).toBe(
+      "John and Jane SMITH and Guest",
+    );
+  });
+
+  it("adds Family to the invitation name for three or more guests", () => {
+    const family = [guest("John", "Smith"), guest("Jane", "Smith"), guest("Sam", "Smith")];
+    expect(invitationGreeting("The Smith Household", family)).toBe("The Smith Household Family");
+    expect(invitationGreeting("Smith", [...family, plusOne])).toBe("Smith Family");
+  });
+
+  it("does not repeat Family when the invitation name already ends in it", () => {
     const family = [guest("John", "Smith"), guest("Jane", "Smith"), guest("Sam", "Smith")];
     expect(invitationGreeting("The Smith Family", family)).toBe("The Smith Family");
-    expect(invitationGreeting("The Smith Family", [...family, plusOne])).toBe("The Smith Family");
+    expect(invitationGreeting(" the smith family ", family)).toBe("the smith family");
   });
 
   it("adds Guest for a plus-one slot", () => {

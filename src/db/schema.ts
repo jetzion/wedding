@@ -129,4 +129,23 @@ export const rsvpResponses = pgTable(
   ],
 );
 
+/**
+ * A record of an admin change or export (docs/SPEC.md section 5). targetId is
+ * the invitation's id, kept without a foreign key so records outlive deleted
+ * invitations. Summaries hold names and counts only, never dietary or
+ * accessibility notes, contact emails, or messages.
+ */
+export const auditLog = pgTable(
+  "audit_log",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    at: timestamp("at", { withTimezone: true }).notNull().defaultNow(),
+    actorEmail: text("actor_email").notNull(),
+    action: text("action").notNull(),
+    targetId: uuid("target_id"),
+    summary: text("summary").notNull(),
+  },
+  (t) => [index("audit_log_at_idx").on(t.at)],
+);
+
 export * from "@/db/auth-schema";

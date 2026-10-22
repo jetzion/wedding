@@ -18,7 +18,7 @@ const GUESTS = [
   ["Robin", "Playwright"],
 ];
 
-const COUPLE = "Pat Playwright and Robin Playwright";
+const COUPLE = "Pat and Robin Playwright";
 
 let householdId = "";
 let link = "";
@@ -60,10 +60,10 @@ test("ignores capital letters in the link", async ({ page }) => {
   await expect(page.getByText(`Dear ${COUPLE},`)).toBeVisible();
 });
 
-test("addresses three or more guests by the invitation name", async ({ page }) => {
+test("addresses three or more guests as the invitation name plus Family", async ({ page }) => {
   await db.insert(guests).values({ householdId, firstName: "Sam", lastName: "Playwright", sortOrder: 3 });
   await page.goto(`/invitation/${link}`);
-  await expect(page.getByText(`Dear ${NAME},`)).toBeVisible();
+  await expect(page.getByText(`Dear ${NAME} Family,`)).toBeVisible();
   await expect(page.getByText("Sam Playwright")).toHaveCount(0);
 });
 

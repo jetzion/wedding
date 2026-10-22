@@ -19,8 +19,8 @@ const eyebrow = "text-sm uppercase tracking-[0.3em] text-ink-muted";
 
 /**
  * A household's personal invitation at /invitation/[linkName], addressed by
- * invitationGreeting(): one or two guests by full name, larger households by
- * invitation name.
+ * invitationGreeting(): one or two guests by full name, larger households as
+ * the invitation name plus "Family".
  */
 export default function Page({ params }: PageProps<"/invitation/[linkName]">) {
   return (

@@ -6,6 +6,8 @@ const ADMIN_PAGES = [
   "/admin?q=rivera&status=awaiting",
   "/admin/invitations",
   "/admin/invitations/new",
+  "/admin/activity",
+  "/admin/password",
   `/admin/invitations/${SOME_ID}/edit`,
   `/admin/invitations/${SOME_ID}/delete`,
   `/admin/invitations/${SOME_ID}/rsvp`,

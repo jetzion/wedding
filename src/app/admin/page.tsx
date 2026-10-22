@@ -45,6 +45,9 @@ async function Dashboard({ params }: { params: Record<string, string | string[] 
         <a href="/admin/export" download className={secondaryButton}>
           Export CSV
         </a>
+        <Link href="/admin/activity" className={secondaryButton}>
+          Activity
+        </Link>
       </div>
       <InvitationFilterForm filter={filter} />
       {filtering && (
