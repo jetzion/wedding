@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { GoldDivider, InvitationDecor } from "@/components/invitation-decor";
 import { frostedPanel } from "@/components/page-hero";
 import { primaryButton, secondaryButton } from "@/components/rsvp/fields";
 import { getInvitationByLinkName } from "@/lib/invitation-lookup";
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const card = `${frostedPanel} flex w-full max-w-xl flex-col items-center gap-6 px-8 py-12 text-center sm:px-14`;
-const divider = <div aria-hidden className="h-px w-24 bg-seafoam" />;
+const card = `${frostedPanel} relative isolate flex w-full max-w-xl flex-col items-center gap-6 px-8 py-12 text-center sm:px-14`;
+const divider = <GoldDivider />;
 const eyebrow = "text-sm uppercase tracking-[0.3em] text-ink-muted";
 
 /**
@@ -55,6 +56,7 @@ async function Invitation({ linkName }: { linkName: string }) {
 
   return (
     <article className={card}>
+      <InvitationDecor />
       <p className={eyebrow}>You&apos;re invited</p>
       <p className="font-serif text-2xl text-balance italic sm:text-3xl">Dear {invitation.greeting},</p>
       <h1 className="font-serif text-5xl font-medium leading-tight sm:text-6xl">
@@ -92,6 +94,7 @@ async function Invitation({ linkName }: { linkName: string }) {
 function NotFoundCard() {
   return (
     <article className={card}>
+      <InvitationDecor />
       <p className={eyebrow}>Invitation</p>
       <h1 className="font-serif text-4xl font-medium text-balance sm:text-5xl">We couldn&apos;t find this invitation</h1>
       {divider}
@@ -106,6 +109,7 @@ function NotFoundCard() {
 function LoadingCard() {
   return (
     <div className={card}>
+      <InvitationDecor />
       <p className={eyebrow}>You&apos;re invited</p>
       <p className="text-ink-muted">Opening your invitation…</p>
     </div>
