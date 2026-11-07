@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1590" viewBox="0 0 2400 1590">
+  <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="40" />
+  </filter>
+  <polygon filter="url(#soft)" fill="#fff" points="-100,370 1960,378 2080,420 1960,700 1860,1100 1950,1700 -100,1700" />
+</svg>

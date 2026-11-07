@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { GoldDivider, InvitationDecor } from "@/components/invitation-decor";
+import { OceanMotion } from "@/components/ocean-motion";
 import { frostedPanel } from "@/components/page-hero";
 import { primaryButton, secondaryButton } from "@/components/rsvp/fields";
 import { getInvitationByLinkName } from "@/lib/invitation-lookup";
@@ -36,6 +37,7 @@ export default function Page({ params }: PageProps<"/invitation/[linkName]">) {
           sizes="(max-width: 768px) 250vw, 100vw"
           className="object-cover object-center"
         />
+        <OceanMotion />
       </div>
       <Suspense fallback={<LoadingCard />}>
         {params.then(({ linkName }) => (

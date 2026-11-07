@@ -31,6 +31,20 @@
   --color-gold: var(--gold);
   --animate-pop: pop 0.35s ease-out;
   --animate-shake: shake 0.5s ease-in-out 0.35s;
+  --animate-ripple-a: ripple-a 90s linear infinite;
+  --animate-ripple-b: ripple-b 70s linear infinite;
+
+  @keyframes ripple-a {
+    to {
+      background-position: 1200px 720px;
+    }
+  }
+
+  @keyframes ripple-b {
+    to {
+      background-position: -930px 560px;
+    }
+  }
 
   @keyframes pop {
     from {
@@ -64,6 +78,13 @@
 body {
   background: var(--sand);
   color: var(--ink);
+}
+
+/* Each ripple layer drifts by exactly one tile per loop, so the loop is seamless. The two tile sizes differ so their overlap does not visibly repeat. */
+.ocean-ripple {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
 }
 
 :focus-visible {
